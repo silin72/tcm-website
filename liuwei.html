@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>六味地黄丸 - 经典方剂</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        body { min-height: 100vh; background: #f8f5f2; }
+        .header { width: 100%; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; background-color: #f5f5f5; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 999; }
+        .nav-left { display: flex; align-items: center; gap: 35px; }
+        .nav-left a { font-size: 15px; color: #666; text-decoration: none; transition: color 0.3s; }
+        .nav-left a:hover { color: #b8860b; }
+        .nav-left a.active { color: #b8860b; font-weight: 500; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .user-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+        .back-section { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 6px; color: #666; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+        .back-btn:hover { color: #b8860b; }
+        .back-btn::before { content: "←"; }
+        .detail-container { max-width: 1200px; margin: 0 auto; padding: 20px; display: flex; gap: 40px; }
+        .detail-left { flex: 1; }
+        .detail-right { width: 300px; }
+        .prescription-title { font-size: 32px; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .prescription-tag { display: inline-block; padding: 6px 16px; background-color: #f5f0e6; color: #b8860b; font-size: 14px; border-radius: 4px; margin-bottom: 20px; }
+        .info-section { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+        .section-title { font-size: 18px; font-weight: bold; color: #333; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+        .section-content { font-size: 15px; color: #666; line-height: 1.8; }
+        .herb-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .herb-item { padding: 8px 16px; background-color: #f8f5f0; border-radius: 20px; font-size: 14px; color: #666; }
+        .image-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+        .image-card img { width: 100%; height: 200px; object-fit: cover; }
+        .image-card-title { padding: 16px; font-size: 16px; color: #333; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-left">
+            <a href="index.html">首页</a>
+            <a href="1.html">中药图谱</a>
+            <a href="prescription.html" class="active">经典方剂</a>
+            <a href="recipe.html">养生食谱</a>
+            <a href="viewports.html">知识库</a>
+            <a href="community.html">问答社区</a>
+            <a href="articles.html">养生文章</a>
+        </nav>
+        <div class="nav-right">
+            <a href="profile.html">
+                <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+            </a>
+        </div>
+    </header>
+    <div class="back-section">
+        <a href="prescription.html" class="back-btn">返回方剂列表</a>
+    </div>
+    <div class="detail-container">
+        <div class="detail-left">
+            <h1 class="prescription-title">六味地黄丸</h1>
+            <div class="prescription-tag">补益剂</div>
+            <div class="info-section">
+                <div class="section-title">来源</div>
+                <div class="section-content">《小儿药证直诀》</div>
+            </div>
+            <div class="info-section">
+                <div class="section-title">组成</div>
+                <div class="herb-list">
+                    <span class="herb-item">熟地黄</span>
+                    <span class="herb-item">山茱萸</span>
+                    <span class="herb-item">山药</span>
+                    <span class="herb-item">泽泻</span>
+                    <span class="herb-item">茯苓</span>
+                    <span class="herb-item">丹皮</span>
+                </div>
+            </div>
+            <div class="info-section">
+                <div class="section-title">功效</div>
+                <div class="section-content">滋阴补肾，主治肾阴亏损证。症见腰膝酸软，头晕耳鸣，盗汗遗精，消渴，骨蒸潮热，手足心热，舌红少苔，脉细数。</div>
+            </div>
+        </div>
+        <div class="detail-right">
+            <div class="image-card">
+                <img src="img/黄精.jpg" alt="六味地黄丸" onerror="this.src='img/沙参.jpg'">
+                <div class="image-card-title">六味地黄丸</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>寻草记 | 养生食谱汇总</title>
+  <style>
+    /* 全局样式 - 匹配寻草记风格 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0; /* 匹配网站浅米底色 */
+      color: #333;
+      line-height: 1.6;
+    }
+    /* 顶部导航栏 */
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-box input {
+      width: 220px;
+      padding: 8px 35px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      background-color: #e8e8e8;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-box input::placeholder {
+      color: #999;
+    }
+    .search-box .search-icon {
+      position: absolute;
+      right: 12px;
+      color: #666;
+      cursor: pointer;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    /* 页面标题区 */
+    .page-header {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 32px;
+      color: #8b5a2b; /* 匹配网站暖棕主色 */
+      margin-bottom: 15px;
+    }
+    .page-header p {
+      font-size: 18px;
+      color: #666;
+    }
+    /* 食谱分类筛选（可选，提升体验） */
+    .filter-bar {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #f0e6d2;
+      border-radius: 20px;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .filter-btn.active {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .filter-btn:hover {
+      border-color: #8b5a2b;
+      color: #8b5a2b;
+    }
+    .recipe-card.hidden {
+      display: none;
+    }
+    /* 食谱卡片列表 - 多列布局 */
+    .recipe-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    /* 单个食谱卡片 - 国风卡片样式 */
+    .recipe-card {
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    /* 卡片图片 */
+    .card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid #f0e6d2;
+    }
+    /* 卡片内容 */
+    .card-content {
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 18px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .card-desc {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #f8f3e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 15px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 15px 20px;
+        gap: 20px;
+      }
+      .recipe-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<header class="header">
+    <nav class="nav-left">
+        <a href="index.html">首页</a>
+        <a href="1.html">中药图谱</a>
+        <a href="prescription.html">经典方剂</a>
+        <a href="recipe.html" class="active">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html">问答社区</a>
+        <a href="articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<!-- 页面标题 -->
+<div class="page-header">
+  <h1>草木为食 · 颐养身心</h1>
+  <p>寻草记精选养生食谱，顺应四时，食养同源</p>
+</div>
+
+<!-- 分类筛选 -->
+<div class="filter-bar">
+  <button class="filter-btn active">全部食谱</button>
+  <button class="filter-btn">冬季暖汤</button>
+  <button class="filter-btn">夏季清润</button>
+  <button class="filter-btn">补气养血</button>
+  <button class="filter-btn">滋阴润燥</button>
+  <button class="filter-btn">健脾养胃</button>
+</div>
+
+<!-- 食谱卡片列表（12款+） -->
+<div class="recipe-grid">
+  <!-- 1. 当归生姜羊肉汤 -->
+  <a href="/recipe/danggui-mutton" class="recipe-card">
+    <img src="img/当归生姜牛肉汤.jpg" class="card-img" alt="当归生姜牛肉汤">
+    <div class="card-content">
+      <h3 class="card-title">当归生姜牛肉汤</h3>
+      <p class="card-desc">张仲景古方，温中补血、祛寒止痛，冬季手脚冰凉者必备</p>
+      <span class="card-tag">冬季暖汤</span>
+      <span class="card-tag">补气养血</span>
+    </div>
+  </a>
+  <!-- 2. 沙参玉竹老鸭汤 -->
+  <a href="/recipe/shashen-yuzhu-duck" class="recipe-card">
+    <img src="img/沙参玉竹老鸭汤.jpg" class="card-img" alt="沙参玉竹老鸭汤">
+    <div class="card-content">
+      <h3 class="card-title">沙参玉竹老鸭汤</h3>
+      <p class="card-desc">滋阴润燥、生津止渴，适合秋季干燥、肺热咳嗽，温润不腻</p>
+      <span class="card-tag">秋季清润</span>
+      <span class="card-tag">滋阴润燥</span>
+    </div>
+  </a>
+  <!-- 3. 黄精枸杞乌鸡汤 -->
+  <a href="/recipe/huangjing-gouqi-chicken" class="recipe-card">
+    <img src="img/黄精枸杞乌鸡汤.jpg" class="card-img" alt="黄精枸杞乌鸡汤">
+    <div class="card-content">
+      <h3 class="card-title">黄精枸杞乌鸡汤</h3>
+      <p class="card-desc">补肾益精、养肝明目，长期饮用增强体质，适合熬夜党</p>
+      <span class="card-tag">补气养血</span>
+      <span class="card-tag">补肾养肝</span>
+    </div>
+  </a>
+  <!-- 4. 山药排骨粥 -->
+  <a href="/recipe/shanyao-paigu-porridge" class="recipe-card">
+    <img src="img/山药排骨粥.jpg" class="card-img" alt="山药排骨粥">
+    <div class="card-content">
+      <h3 class="card-title">山药排骨粥</h3>
+      <p class="card-desc">健脾养胃、益气养阴，早餐食用易消化，适合脾胃虚弱者</p>
+      <span class="card-tag">健脾养胃</span>
+      <span class="card-tag">日常养生</span>
+    </div>
+  </a>
+  <!-- 5. 莲子百合小米粥 -->
+  <a href="/recipe/lianzi-baihe-millet" class="recipe-card">
+    <img src="img/莲子百合小米粥.jpg" class="card-img" alt="莲子百合小米粥">
+    <div class="card-content">
+      <h3 class="card-title">莲子百合小米粥</h3>
+      <p class="card-desc">清心安神、润肺止咳，晚餐食用助眠，适合压力大失眠人群</p>
+      <span class="card-tag">安神助眠</span>
+      <span class="card-tag">滋阴润燥</span>
+    </div>
+  </a>
+  <!-- 6. 陈皮茯苓薏米水 -->
+  <a href="/recipe/chenpi-fuling-yimi" class="recipe-card">
+    <img src="img/陈皮茯苓薏米水.jpg" class="card-img" alt="陈皮茯苓薏米水">
+    <div class="card-content">
+      <h3 class="card-title">陈皮茯苓薏米水</h3>
+      <p class="card-desc">健脾祛湿、理气和胃，夏季饮用去暑湿，适合体内湿气重者</p>
+      <span class="card-tag">夏季清润</span>
+      <span class="card-tag">健脾祛湿</span>
+    </div>
+  </a>
+  <!-- 7. 桂圆红枣茶 -->
+  <a href="/recipe/guiyuan-hongzao-tea" class="recipe-card">
+    <img src="img/桂圆红枣茶.jpg" class="card-img" alt="桂圆红枣茶">
+    <div class="card-content">
+      <h3 class="card-title">桂圆红枣茶</h3>
+      <p class="card-desc">补气养血、养心安神，经期饮用缓解不适，适合气血不足女性</p>
+      <span class="card-tag">补气养血</span>
+      <span class="card-tag">日常养生</span>
+    </div>
+  </a>
+  <!-- 8. 麦冬雪梨汤 -->
+  <a href="/recipe/maidong-xueli-soup" class="recipe-card">
+    <img src="img/麦冬雪梨汤.jpg" class="card-img" alt="麦冬雪梨汤">
+    <div class="card-content">
+      <h3 class="card-title">麦冬雪梨汤</h3>
+      <p class="card-desc">润肺生津、清心除烦，雾霾天饮用护嗓，适合教师/主播</p>
+      <span class="card-tag">滋阴润燥</span>
+      <span class="card-tag">秋季清润</span>
+    </div>
+  </a>
+  <!-- 9. 芡实山药粥 -->
+  <a href="/recipe/qianshi-shanyao-porridge" class="recipe-card">
+    <img src="img/芡实山药粥.jpg" class="card-img" alt="芡实山药粥">
+    <div class="card-content">
+      <h3 class="card-title">芡实山药粥</h3>
+      <p class="card-desc">益肾固精、补脾止泻，适合肾虚尿频、脾虚腹泻人群</p>
+      <span class="card-tag">健脾养胃</span>
+      <span class="card-tag">补肾养肝</span>
+    </div>
+  </a>
+  <!-- 10. 黄芪红枣枸杞茶 -->
+  <a href="/recipe/huangqi-hongzao-gouqi-tea" class="recipe-card">
+    <img src="img/黄芪红枣茶.jpg" class="card-img" alt="黄芪红枣茶">
+    <div class="card-content">
+      <h3 class="card-title">黄芪红枣茶</h3>
+      <p class="card-desc">补气升阳、养血安神，适合气虚乏力、面色萎黄者</p>
+      <span class="card-tag">补气养血</span>
+      <span class="card-tag">日常养生</span>
+    </div>
+  </a>
+  <!-- 11. 冬瓜海带排骨汤 -->
+  <a href="/recipe/donggua-haidai-paigu" class="recipe-card">
+    <img src="img/冬瓜海带排骨汤.jpg" class="card-img" alt="冬瓜海带排骨汤">
+    <div class="card-content">
+      <h3 class="card-title">冬瓜海带排骨汤</h3>
+      <p class="card-desc">清热利湿、消肿减脂，夏季饮用解暑，适合体重超标人群</p>
+      <span class="card-tag">夏季清润</span>
+      <span class="card-tag">健脾祛湿</span>
+    </div>
+  </a>
+  <!-- 12. 百合莲子粥 -->
+  <a href="/recipe/baihe-lianzi-porridge" class="recipe-card">
+    <img src="img/百合莲子粥.jpg" class="card-img" alt="百合莲子粥">
+    <div class="card-content">
+      <h3 class="card-title">百合莲子粥</h3>
+      <p class="card-desc">润肺止咳、宁心安神，适合秋季干咳、更年期失眠人群</p>
+      <span class="card-tag">安神助眠</span>
+      <span class="card-tag">滋阴润燥</span>
+    </div>
+  </a>
+</div>
+
+<script>
+  // 分类筛选功能
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // 更新按钮状态
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      const category = this.textContent.trim();
+      const cards = document.querySelectorAll('.recipe-card');
+      
+      cards.forEach(card => {
+        const tags = card.querySelectorAll('.card-tag');
+        const tagTexts = Array.from(tags).map(tag => tag.textContent.trim());
+        
+        if (category === '全部食谱' || tagTexts.includes(category)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // 导航栏搜索功能
+  function navSearch() {
+    const keyword = document.getElementById('navSearchInput').value.trim().toLowerCase();
+    if (!keyword) return;
+    
+    const cards = document.querySelectorAll('.recipe-card');
+    let hasResult = false;
+    
+    cards.forEach(card => {
+      const title = card.querySelector('.card-title').textContent.toLowerCase();
+      const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+      const tags = card.querySelectorAll('.card-tag');
+      const tagTexts = Array.from(tags).map(tag => tag.textContent.trim().toLowerCase()).join(' ');
+      
+      if (title.includes(keyword) || desc.includes(keyword) || tagTexts.includes(keyword)) {
+        card.classList.remove('hidden');
+        hasResult = true;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    
+    // 重置分类按钮状态
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('.filter-btn').classList.add('active');
+  }
+
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

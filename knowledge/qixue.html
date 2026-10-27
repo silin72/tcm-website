@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>气血津液 - 中医知识库</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-header h1 {
+      font-size: 28px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+    }
+    .article-header .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #333;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content h2:first-child {
+      margin-top: 0;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .quote {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .concept-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .concept-item {
+      background-color: #faf7f0;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .concept-item .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .concept-item h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .concept-item p {
+      font-size: 13px;
+      text-indent: 0;
+      margin-bottom: 0;
+    }
+    .function-list {
+      background-color: #faf7f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .function-list h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 12px;
+    }
+    .function-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    .function-list li {
+      font-size: 14px;
+      color: #666;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .function-list li::before {
+      content: "•";
+      position: absolute;
+      left: 5px;
+      color: #8b5a2b;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html" class="active">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../viewports.html" class="back-btn">← 返回知识库</a>
+</div>
+
+<div class="content-wrapper">
+  <div class="article-header">
+    <h1>气血津液</h1>
+    <span class="tag">生理基础</span>
+  </div>
+  
+  <div class="article-content">
+    <h2>基本概念</h2>
+    <p>气、血、津液是构成人体和维持人体生命活动的基本物质。它们既是脏腑经络等组织器官功能活动的产物，又是这些组织器官进行功能活动的物质基础。</p>
+    
+    <div class="quote">
+      "人之所有者，血与气耳。" ——《黄帝内经》
+    </div>
+    
+    <div class="concept-box">
+      <div class="concept-item">
+        <div class="icon">💨</div>
+        <h4>气</h4>
+        <p>生命活动的动力</p>
+      </div>
+      <div class="concept-item">
+        <div class="icon">🩸</div>
+        <h4>血</h4>
+        <p>营养物质的载体</p>
+      </div>
+      <div class="concept-item">
+        <div class="icon">💧</div>
+        <h4>津液</h4>
+        <p>滋润濡养的源泉</p>
+      </div>
+    </div>
+    
+    <h2>气的功能</h2>
+    <p>气是构成人体和维持生命活动的最基本物质，具有多种重要功能：</p>
+    <div class="function-list">
+      <h4>气的五大功能</h4>
+      <ul>
+        <li><strong>推动作用：</strong>推动人体的生长发育，激发脏腑经络的功能活动</li>
+        <li><strong>温煦作用：</strong>维持体温恒定，温暖脏腑组织</li>
+        <li><strong>防御作用：</strong>护卫肌表，抗御外邪入侵</li>
+        <li><strong>固摄作用：</strong>控制血液在脉中运行，防止津液流失</li>
+        <li><strong>气化作用：</strong>促进精、气、血、津液的相互转化</li>
+      </ul>
+    </div>
+    
+    <h2>血的功能</h2>
+    <p>血是循行于脉中而富有营养的红色液态物质，是构成人体和维持生命活动的基本物质之一。血具有营养和滋润全身的作用，是神志活动的主要物质基础。</p>
+    <p>血液充盈，则面色红润、肌肉丰满、皮肤润泽、毛发光泽、感觉灵敏、运动灵活。血虚则会出现面色苍白、头晕眼花、心悸失眠等症状。</p>
+    
+    <h2>津液的功能</h2>
+    <p>津液是人体一切正常水液的总称，包括各脏腑组织内的液体及其正常的分泌物。津液具有滋润和濡养的作用，能够滋润皮毛、肌肤、眼、鼻、口等，濡养脏腑、骨髓、脑髓等。</p>
+    
+    <h2>气血津液的关系</h2>
+    <p>气为血之帅，血为气之母。气能生血、行血、摄血；血能载气、养气。气能生津、行津、摄津；津能载气。气血津液相互依存、相互转化，共同维持人体的生命活动。</p>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../knowledge/yinyang.html" class="related-item">
+        <div class="related-icon">☯️</div>
+        <div class="related-name">阴阳平衡</div>
+      </a>
+      <a href="../knowledge/tianren.html" class="related-item">
+        <div class="related-icon">🌿</div>
+        <div class="related-name">天人合一</div>
+      </a>
+      <a href="../knowledge/zangxiang.html" class="related-item">
+        <div class="related-icon">🫀</div>
+        <div class="related-name">藏象学说</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

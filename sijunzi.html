@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>四君子汤 - 经典方剂 - 中医药材网</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f8f5f2;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            width: 100%;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+        .nav-left a {
+            font-size: 15px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-left a:hover {
+            color: #b8860b;
+        }
+        .nav-left a.active {
+            color: #b8860b;
+            font-weight: 500;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* 返回按钮 */
+        .back-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        .back-btn:hover {
+            color: #b8860b;
+        }
+        .back-btn::before {
+            content: "←";
+        }
+
+        /* 详情内容 */
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .detail-left {
+            flex: 1;
+        }
+
+        .detail-right {
+            width: 300px;
+        }
+
+        .prescription-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .prescription-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background-color: #f5f0e6;
+            color: #b8860b;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .section-content {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .herb-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .herb-item {
+            padding: 8px 16px;
+            background-color: #f8f5f0;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-card-title {
+            padding: 16px;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+
+        .source-info {
+            background: #f8f5f0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .source-info-title {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .source-info-content {
+            font-size: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <nav class="nav-left">
+            <a href="index.html">首页</a>
+            <a href="1.html">中药图谱</a>
+            <a href="prescription.html" class="active">经典方剂</a>
+            <a href="recipe.html">养生食谱</a>
+            <a href="viewports.html">知识库</a>
+            <a href="community.html">问答社区</a>
+            <a href="articles.html">养生文章</a>
+        </nav>
+        <div class="nav-right">
+            <a href="profile.html">
+                <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+            </a>
+        </div>
+    </header>
+
+    <!-- 返回按钮 -->
+    <div class="back-section">
+        <a href="prescription.html" class="back-btn">返回方剂列表</a>
+    </div>
+
+    <!-- 详情内容 -->
+    <div class="detail-container">
+        <div class="detail-left">
+            <h1 class="prescription-title">四君子汤</h1>
+            <div class="prescription-tag">补益剂</div>
+
+            <div class="info-section">
+                <div class="section-title">来源</div>
+                <div class="section-content">《太平惠民和剂局方》</div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title">组成</div>
+                <div class="herb-list">
+                    <span class="herb-item">人参</span>
+                    <span class="herb-item">白术</span>
+                    <span class="herb-item">茯苓</span>
+                    <span class="herb-item">甘草</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title">功效</div>
+                <div class="section-content">益气健脾，主治脾胃气虚证。症见面色萎白，语声低微，气短乏力，食少便溏，舌淡苔白，脉虚弱。</div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title">用法</div>
+                <div class="section-content">水煎服，每日一剂，分两次温服。</div>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title">方解</div>
+                <div class="section-content">
+                    方中人参为君，甘温益气，健脾养胃。白术为臣，健脾燥湿，加强益气助运之力。佐以甘淡茯苓，健脾渗湿，苓术相配，则健脾祛湿之功益著。使以炙甘草，益气和中，调和诸药。四药配伍，共奏益气健脾之功。
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-right">
+            <div class="image-card">
+                <img src="img/地黄.jpg" alt="四君子汤" onerror="this.src='img/沙参.jpg'">
+                <div class="image-card-title">四君子汤</div>
+            </div>
+            <div class="source-info">
+                <div class="source-info-title">经典出处</div>
+                <div class="source-info-content">宋·《太平惠民和剂局方》</div>
+            </div>
+        </div>
+    </div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

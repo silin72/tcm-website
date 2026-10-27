@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>寻草记 | 养生文章</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .page-header {
+      max-width: 1000px;
+      margin: 40px auto 30px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 28px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 14px;
+      color: #666;
+    }
+    .content-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    /* 文章卡片 */
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .article-card {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .article-card.hidden {
+      display: none;
+    }
+    .article-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+    .article-body {
+      padding: 18px;
+    }
+    .article-tag {
+      display: inline-block;
+      padding: 3px 10px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 11px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .article-title {
+      font-size: 17px;
+      color: #333;
+      margin-bottom: 10px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .article-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #aaa;
+    }
+    /* 分类筛选 */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      background-color: #fff;
+      border: 1px solid #f0e6d2;
+      border-radius: 20px;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    .filter-btn.active {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .filter-btn:hover {
+      border-color: #8b5a2b;
+      color: #8b5a2b;
+    }
+    @media (max-width: 768px) {
+      .article-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="index.html">首页</a>
+        <a href="1.html">中药图谱</a>
+        <a href="prescription.html">经典方剂</a>
+        <a href="recipe.html">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html">问答社区</a>
+        <a href="articles.html" class="active">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="page-header">
+  <h1>养生文章</h1>
+  <p>中医养生智慧，健康生活指南</p>
+</div>
+
+<div class="content-wrapper">
+  <!-- 分类筛选 -->
+  <div class="filter-bar">
+    <button class="filter-btn active">全部</button>
+    <button class="filter-btn">四季养生</button>
+    <button class="filter-btn">食疗保健</button>
+    <button class="filter-btn">经络穴位</button>
+    <button class="filter-btn">体质调理</button>
+    <button class="filter-btn">情志养生</button>
+  </div>
+
+  <!-- 文章列表 -->
+  <div class="article-grid">
+    <a href="article/spring-liver.html" class="article-card" data-category="四季养生">
+      <img src="img/春季养生.jpg" class="article-img" alt="春季养生" onerror="this.src='img/当归.jpg'">
+      <div class="article-body">
+        <span class="article-tag">四季养生</span>
+        <h3 class="article-title">春季养肝正当时，教你三招疏肝理气</h3>
+        <p class="article-desc">春属木，与肝相应。春季是养肝的最佳时节，本文介绍三种简单有效的养肝方法...</p>
+        <div class="article-meta">
+          <span>2026-03-20</span>
+          <span>👁 1,234</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/food-therapy.html" class="article-card" data-category="食疗保健">
+      <img src="img/食疗养生.jpg" class="article-img" alt="食疗养生" onerror="this.src='img/山药排骨粥.jpg'">
+      <div class="article-body">
+        <span class="article-tag">食疗保健</span>
+        <h3 class="article-title">药食同源：厨房里的养生秘方</h3>
+        <p class="article-desc">生姜、大枣、枸杞、山药...这些常见食材其实都是养生佳品，教你正确的食用方法...</p>
+        <div class="article-meta">
+          <span>2026-03-18</span>
+          <span>👁 2,156</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/acupoint-massage.html" class="article-card" data-category="经络穴位">
+      <img src="img/穴位按摩.jpg" class="article-img" alt="穴位按摩" onerror="this.src='img/艾草图片.jpg'">
+      <div class="article-body">
+        <span class="article-tag">经络穴位</span>
+        <h3 class="article-title">每天按摩这5个穴位，胜过吃补药</h3>
+        <p class="article-desc">足三里、关元、涌泉...这些养生要穴，每天按摩5分钟，强身健体不求人...</p>
+        <div class="article-meta">
+          <span>2026-03-15</span>
+          <span>👁 3,421</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/constitution.html" class="article-card" data-category="体质调理">
+      <img src="img/体质调理.jpg" class="article-img" alt="体质调理" onerror="this.src='img/黄芪.jpg'">
+      <div class="article-body">
+        <span class="article-tag">体质调理</span>
+        <h3 class="article-title">九种体质辨识与调理指南</h3>
+        <p class="article-desc">平和质、气虚质、阳虚质...你是哪种体质？不同体质该如何调理？一文读懂...</p>
+        <div class="article-meta">
+          <span>2026-03-12</span>
+          <span>👁 1,876</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/sleep-health.html" class="article-card" data-category="情志养生">
+      <img src="img/睡眠养生.jpg" class="article-img" alt="睡眠养生" onerror="this.src='img/百合莲子粥.jpg'">
+      <div class="article-body">
+        <span class="article-tag">情志养生</span>
+        <h3 class="article-title">失眠多梦？试试这些安神助眠方</h3>
+        <p class="article-desc">酸枣仁、百合、莲子...中医安神助眠的食疗方，让你一觉睡到天亮...</p>
+        <div class="article-meta">
+          <span>2026-03-10</span>
+          <span>👁 2,543</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/summer-health.html" class="article-card" data-category="四季养生">
+      <img src="img/夏季养生.jpg" class="article-img" alt="夏季养生" onerror="this.src='img/冬瓜海带排骨汤.jpg'">
+      <div class="article-body">
+        <span class="article-tag">四季养生</span>
+        <h3 class="article-title">夏季养心祛湿，这些食材要多吃</h3>
+        <p class="article-desc">夏属火，与心相应。夏季养生重在养心祛湿，绿豆、冬瓜、薏米都是好选择...</p>
+        <div class="article-meta">
+          <span>2026-03-08</span>
+          <span>👁 1,654</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/moxibustion.html" class="article-card" data-category="经络穴位">
+      <img src="img/艾灸养生.jpg" class="article-img" alt="艾灸养生" onerror="this.src='img/艾草图片.jpg'">
+      <div class="article-body">
+        <span class="article-tag">经络穴位</span>
+        <h3 class="article-title">艾灸养生入门：在家也能做的保健法</h3>
+        <p class="article-desc">艾灸是中医传统疗法，温经通络、祛湿散寒。本文教你在家安全艾灸的方法...</p>
+        <div class="article-meta">
+          <span>2026-03-05</span>
+          <span>👁 2,876</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="article/spleen-stomach.html" class="article-card" data-category="体质调理">
+      <img src="img/脾胃调理.jpg" class="article-img" alt="脾胃调理" onerror="this.src='img/山药排骨粥.jpg'">
+      <div class="article-body">
+        <span class="article-tag">体质调理</span>
+        <h3 class="article-title">脾胃虚弱怎么调？食疗+按摩双管齐下</h3>
+        <p class="article-desc">脾胃为后天之本，气血生化之源。脾胃虚弱该如何调理？食疗方和按摩手法都在这...</p>
+        <div class="article-meta">
+          <span>2026-03-01</span>
+          <span>👁 3,102</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+  // 分类筛选功能
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      const category = this.textContent.trim();
+      const cards = document.querySelectorAll('.article-card');
+      
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === '全部' || cardCategory === category) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // 页面加载时读取保存的头像
+  (function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    console.log('读取到的头像:', savedAvatar ? '有数据' : '无数据');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      console.log('导航栏头像元素:', navAvatar);
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+        console.log('头像已更新');
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>艾灸养生入门：在家也能做的保健法 - 养生文章</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .article-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .article-title {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #8b5a2b;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .tip-box {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+    }
+    .article-content .tip-box h4 {
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .article-content .tip-box p {
+      text-indent: 0;
+      margin-bottom: 0;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-tag {
+      font-size: 11px;
+      color: #8b5a2b;
+      background-color: #f5f0e6;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html" class="active">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../articles.html" class="back-btn">← 返回文章列表</a>
+</div>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <span class="article-tag">经络穴位</span>
+    <h1 class="article-title">艾灸养生入门：在家也能做的保健法</h1>
+    <div class="article-meta">2026-03-05 · 👁 2,876 阅读</div>
+  </div>
+  
+  <div class="article-content">
+    <img src="../img/艾灸养生.jpg" alt="艾灸养生" onerror="this.src='../img/艾草图片.jpg'">
+    
+    <p>艾灸是用艾绒制成的艾条、艾柱熏烤体表穴位，借其温热刺激与药力以防病保健的传统疗法，与针刺并称"针灸"。《医学入门》说："药之不及，针之不到，必须灸之。"艾灸具有温经通络、祛湿散寒、扶阳固脱的作用，尤其适合虚寒体质，居家操作也十分方便。</p>
+    
+    <h2>认识艾草：纯阳之草</h2>
+    <p>艾草味辛苦、性温，归肝、脾、肾经，被誉为"地之阳"。端午前后采摘的艾叶品质最佳，经反复捣筛去除杂质后得到金黄柔软、香气浓郁的艾绒。选艾条宜选陈年艾（放置三年以上），火力温和渗透，不灼痛。</p>
+    
+    <h2>家庭艾灸的三种常用手法</h2>
+    <p><strong>温和灸：</strong>点燃艾条，距皮肤2-3厘米固定熏烤，以局部温热舒适、皮肤微微发红为度，每穴10-15分钟，最适合新手。</p>
+    <p><strong>雀啄灸：</strong>艾条像雀啄食一样上下移动，热力较强，适用于急性痛症，需一定手感，慎用于面部。</p>
+    <p><strong>回旋灸：</strong>艾条在穴位上方画圈移动，适用于病变面积较大的风湿痛、皮肤病等。</p>
+    
+    <div class="tip-box">
+      <h4>入门首选穴位</h4>
+      <p>足三里（健脾益气）、关元（温补肾阳）、气海（培元固本）、神阙（即肚脐，温中散寒）。每个穴位10-15分钟，一次总量不超过40分钟。</p>
+    </div>
+    
+    <h2>居家艾灸的安全守则</h2>
+    <p>第一，防烫伤：艾灸时保持专注，中途不可入睡，可为老人、儿童施灸时用手感知温度；灸后若起小水泡，小者自行吸收，大者消毒后敷料保护。</p>
+    <p>第二，防烟尘与火灾：保持室内适度通风但避免直吹风口，使用专用灸盒接灰，灸后彻底熄灭余火（可将艾条插入密闭灭火筒断氧熄灭）。</p>
+    <p>第三，择时择地：过饱、过饥、醉酒、大汗、情绪剧烈波动时不宜灸；头部、面部、大血管处、孕妇腰腹部禁灸。</p>
+    
+    <div class="tip-box">
+      <h4>灸后调护</h4>
+      <p>艾灸后1小时内勿冷水洗手、勿吹冷风，宜饮一杯温水补充津液。晚间艾灸不宜过晚，以免阳气升发影响睡眠。</p>
+    </div>
+    
+    <h2>哪些人特别适合艾灸</h2>
+    <p>艾灸性温，最宜虚、寒、湿证：畏寒肢冷的阳虚体质、经期腹痛的寒凝血瘀、久泻便溏的脾胃虚寒、易感冒的气虚人群，坚持保健灸可明显改善。而阴虚火旺（手足心热、口干盗汗）、实热证、发热者则不宜艾灸，否则火上浇油。</p>
+    
+    <div class="tip-box">
+      <h4>温馨提示</h4>
+      <p>保健灸贵在循序渐进，每周2-3次即可，不必日日施灸。若患有高血压、糖尿病等慢性病或皮肤感觉障碍，请在中医师指导下进行；艾灸不能替代疾病的治疗，症状加重时请及时就医。</p>
+    </div>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../article/acupoint-massage.html" class="related-item">
+        <span class="related-tag">经络穴位</span>
+        <div class="related-name">每天按摩这5个穴位，胜过吃补药</div>
+      </a>
+      <a href="../article/summer-health.html" class="related-item">
+        <span class="related-tag">四季养生</span>
+        <div class="related-name">夏季养心祛湿，这些食材要多吃</div>
+      </a>
+      <a href="../article/constitution.html" class="related-item">
+        <span class="related-tag">体质调理</span>
+        <div class="related-name">九种体质辨识与调理指南</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

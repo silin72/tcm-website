@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>九种体质辨识与调理指南 - 养生文章</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .article-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .article-title {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #8b5a2b;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .tip-box {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+    }
+    .article-content .tip-box h4 {
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .article-content .tip-box p {
+      text-indent: 0;
+      margin-bottom: 0;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-tag {
+      font-size: 11px;
+      color: #8b5a2b;
+      background-color: #f5f0e6;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html" class="active">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../articles.html" class="back-btn">← 返回文章列表</a>
+</div>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <span class="article-tag">体质调理</span>
+    <h1 class="article-title">九种体质辨识与调理指南</h1>
+    <div class="article-meta">2026-03-12 · 👁 1,876 阅读</div>
+  </div>
+  
+  <div class="article-content">
+    <img src="../img/体质调理.jpg" alt="体质调理" onerror="this.src='../img/黄芪.jpg'">
+    
+    <p>中医讲究"因人制宜"，同样的生活方式，在不同人身上会有完全不同的表现，根源就在于体质差异。中华中医药学会将国人体质分为九大类型：平和质以及八种偏颇体质。辨清体质，调理才能有的放矢。</p>
+    
+    <h2>平和质：健康的"标准答案"</h2>
+    <p>体态适中、面色红润、精力充沛、睡眠良好、二便正常，适应能力强。这是最理想的体质，约占人群少数。调理原则是均衡饮食、劳逸适度，维持现状即是养生。</p>
+    
+    <h2>气虚质：总是"累"的体质</h2>
+    <p>常见语声低微、容易疲乏、气短自汗、舌淡胖有齿痕。多因久病、劳倦、饮食不节损伤脾气。宜食黄芪、山药、大枣、小米等健脾益气之品，可用四君子汤、补中益气汤加减。运动宜选柔缓的八段锦、散步，忌大汗伤气。</p>
+    
+    <div class="tip-box">
+      <h4>推荐食疗方：黄芪红枣茶</h4>
+      <p>黄芪10克、红枣3枚（掰开），沸水冲泡代茶饮。适合疲乏无力、易感冒的气虚人群日常饮用。</p>
+    </div>
+    
+    <h2>阳虚质：怕冷的"冰体质"</h2>
+    <p>手足不温、怕冷喜暖、精神不振、喜热饮。调理应温补阳气，多吃羊肉、生姜、肉桂等温热之品，可艾灸关元、命门，忌食生冷寒凉，注意腰腹和足部保暖。</p>
+    
+    <h2>阴虚质：缺"水"的燥热体质</h2>
+    <p>手足心热、口燥咽干、形体消瘦、失眠多梦。宜滋补肾阴，多吃百合、银耳、梨、桑葚等甘润之品，方如六味地黄丸。忌辛辣燥热、熬夜伤阴。</p>
+    
+    <h2>痰湿质：身体"重"起来的体质</h2>
+    <p>形体肥胖、腹部肥满、面部油腻、痰多、身体困重。调理重在健脾祛湿，可多食茯苓、薏米、陈皮，方如二陈汤。控制甜食与油腻，坚持有氧运动微微出汗。</p>
+    
+    <h2>湿热质：易长痘上火的体质</h2>
+    <p>面垢油光、口苦口臭、易生痤疮、大便黏滞。宜清热利湿，多吃绿豆、冬瓜、薏米、苦瓜，忌烟酒、辛辣煎炸。夏季暑湿当令时尤需清淡饮食。</p>
+    
+    <h2>血瘀质：循环"堵"住的体质</h2>
+    <p>面色晦暗、皮肤粗糙、容易出现瘀斑、痛经且血块多。宜活血化瘀，可食用山楂、黑木耳、醋，方可用血府逐瘀汤加减。久坐伤血脉，务必增加运动。</p>
+    
+    <h2>气郁质：情绪"感冒"的体质</h2>
+    <p>情绪低落、多愁善感、胸胁胀满、常叹息。调理重在疏肝解郁，可饮玫瑰花茶、陈皮水，方可用逍遥散加减。多参加集体活动、接触阳光和大自然，学会倾诉与释放。</p>
+    
+    <div class="tip-box">
+      <h4>推荐食疗方：玫瑰陈皮茶</h4>
+      <p>干玫瑰花5朵、陈皮3克，沸水冲泡代茶饮。疏肝理气、醒脾开胃，适合压力大、情绪郁闷者。</p>
+    </div>
+    
+    <h2>特禀质：易过敏的体质</h2>
+    <p>过敏体质或患有遗传性疾病，易打喷嚏、鼻塞、起荨麻疹。宜避开过敏原，饮食清淡均衡，可常食益气固表之品如黄芪、防风，方如玉屏风散加减。</p>
+    
+    <div class="tip-box">
+      <h4>温馨提示</h4>
+      <p>多数人的体质是混合型，且会随年龄、环境、生活方式发生变化。体质辨识仅供参考，调理前建议请中医师面诊评估，辨证施养，切勿盲目对号入座、长期自行服药。</p>
+    </div>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../article/food-therapy.html" class="related-item">
+        <span class="related-tag">食疗保健</span>
+        <div class="related-name">药食同源：厨房里的养生秘方</div>
+      </a>
+      <a href="../article/spleen-stomach.html" class="related-item">
+        <span class="related-tag">体质调理</span>
+        <div class="related-name">脾胃虚弱怎么调？食疗+按摩双管齐下</div>
+      </a>
+      <a href="../article/spring-liver.html" class="related-item">
+        <span class="related-tag">四季养生</span>
+        <div class="related-name">春季养肝正当时，教你三招疏肝理气</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

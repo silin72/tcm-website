@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>五行学说 - 中医知识库</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-header h1 {
+      font-size: 28px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+    }
+    .article-header .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #333;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content h2:first-child {
+      margin-top: 0;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .quote {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .wuxing-detail {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .wuxing-card {
+      background-color: #faf7f0;
+      padding: 20px 12px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .wuxing-card .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .wuxing-card h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .wuxing-card p {
+      font-size: 12px;
+      text-indent: 0;
+      margin-bottom: 5px;
+    }
+    .relation-box {
+      background-color: #faf7f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .relation-box h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 12px;
+    }
+    .relation-box ul {
+      list-style: none;
+      padding: 0;
+    }
+    .relation-box li {
+      font-size: 14px;
+      color: #666;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .relation-box li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #8b5a2b;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+    }
+    @media (max-width: 768px) {
+      .wuxing-detail {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html" class="active">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../viewports.html" class="back-btn">← 返回知识库</a>
+</div>
+
+<div class="content-wrapper">
+  <div class="article-header">
+    <h1>五行学说</h1>
+    <span class="tag">基础理论</span>
+  </div>
+  
+  <div class="article-content">
+    <h2>五行的基本概念</h2>
+    <p>五行，即木、火、土、金、水五种物质的运动变化。五行学说是中国古代哲学的重要内容，认为宇宙间的一切事物都是由木、火、土、金、水五种基本物质之间的运动变化所生成的。</p>
+    
+    <div class="quote">
+      "五行者，金木水火土也，更贵更贱，以知死生，以决成败。" ——《黄帝内经》
+    </div>
+    
+    <h2>五行的特性</h2>
+    <div class="wuxing-detail">
+      <div class="wuxing-card">
+        <div class="icon">🌲</div>
+        <h4>木</h4>
+        <p>生发、条达</p>
+        <p>对应肝胆</p>
+        <p>春季东方</p>
+      </div>
+      <div class="wuxing-card">
+        <div class="icon">🔥</div>
+        <h4>火</h4>
+        <p>炎热、向上</p>
+        <p>对应心小肠</p>
+        <p>夏季南方</p>
+      </div>
+      <div class="wuxing-card">
+        <div class="icon">⛰️</div>
+        <h4>土</h4>
+        <p>生化、承载</p>
+        <p>对应脾胃</p>
+        <p>长夏中央</p>
+      </div>
+      <div class="wuxing-card">
+        <div class="icon">⚜️</div>
+        <h4>金</h4>
+        <p>肃杀、收敛</p>
+        <p>对应肺大肠</p>
+        <p>秋季西方</p>
+      </div>
+      <div class="wuxing-card">
+        <div class="icon">💧</div>
+        <h4>水</h4>
+        <p>寒凉、向下</p>
+        <p>对应肾膀胱</p>
+        <p>冬季北方</p>
+      </div>
+    </div>
+    
+    <h2>五行的相生相克</h2>
+    <p>五行之间存在着相生和相克的关系，这种关系维持着事物的正常发展和变化。</p>
+    
+    <div class="relation-box">
+      <h4>五行相生（母子关系）</h4>
+      <ul>
+        <li>木生火：木性温暖，火伏其中，钻灼而生</li>
+        <li>火生土：火热故能焚木，木焚而成灰，灰即土也</li>
+        <li>土生金：金居石依山，津润而生，聚土成山，必生石</li>
+        <li>金生水：少阴之气温润流泽，销金亦为水</li>
+        <li>水生木：水润而能生木</li>
+      </ul>
+    </div>
+    
+    <div class="relation-box">
+      <h4>五行相克（制约关系）</h4>
+      <ul>
+        <li>木克土：木性可散土之壅塞</li>
+        <li>土克水：土性可防水之泛滥</li>
+        <li>水克火：水性可灭火之焰烈</li>
+        <li>火克金：火性可熔金之坚刚</li>
+        <li>金克木：金性可伐木之条达</li>
+      </ul>
+    </div>
+    
+    <h2>五行在中医中的应用</h2>
+    <p>五行学说在中医中用于说明脏腑的生理功能和相互关系，解释病理变化，指导诊断和治疗。如肝属木，心属火，脾属土，肺属金，肾属水。肝木过旺可克脾土，治疗时应疏肝健脾。</p>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../knowledge/yinyang.html" class="related-item">
+        <div class="related-icon">☯️</div>
+        <div class="related-name">阴阳平衡</div>
+      </a>
+      <a href="../knowledge/zangxiang.html" class="related-item">
+        <div class="related-icon">🫀</div>
+        <div class="related-name">藏象学说</div>
+      </a>
+      <a href="../knowledge/tianren.html" class="related-item">
+        <div class="related-icon">🌿</div>
+        <div class="related-name">天人合一</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

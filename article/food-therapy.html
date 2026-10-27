@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>药食同源：厨房里的养生秘方 - 养生文章</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .article-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    .article-title {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      font-size: 14px;
+      color: #999;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #8b5a2b;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .tip-box {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+    }
+    .article-content .tip-box h4 {
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .article-content .tip-box p {
+      text-indent: 0;
+      margin-bottom: 0;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-tag {
+      font-size: 11px;
+      color: #8b5a2b;
+      background-color: #f5f0e6;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+    }
+    @media (max-width: 768px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html" class="active">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../articles.html" class="back-btn">← 返回文章列表</a>
+</div>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <span class="article-tag">食疗保健</span>
+    <h1 class="article-title">药食同源：厨房里的养生秘方</h1>
+    <div class="article-meta">2026-03-18 · 👁 2,156 阅读</div>
+  </div>
+  
+  <div class="article-content">
+    <img src="../img/食疗养生.jpg" alt="药食同源" onerror="this.src='../img/山药排骨粥.jpg'">
+    
+    <p>"药食同源"是中医养生智慧的重要组成部分。许多食物既是果腹的美味，也是调体的良药。生姜、大枣、枸杞、山药……这些厨房里随处可见的食材，只要食用方法得当，就能起到很好的保健作用。</p>
+    
+    <h2>生姜：温中散寒的"还阳草"</h2>
+    <p>生姜味辛性微温，归肺、脾、胃经，具有解表散寒、温中止呕、化痰止咳的功效。民间有"冬吃萝卜夏吃姜，不劳医生开药方"的说法。夏季贪凉受寒时，一碗热腾腾的姜汤往往能让人瞬间舒畅。</p>
+    
+    <div class="tip-box">
+      <h4>推荐食疗方：红糖姜茶</h4>
+      <p>生姜5片，红糖适量，沸水冲泡或煮沸5分钟代茶饮。适合受凉后畏寒、女性经期腹冷者饮用。</p>
+    </div>
+    
+    <h2>大枣：补中益气的"天然丸"</h2>
+    <p>大枣味甘性温，归脾、胃经，能补中益气、养血安神。《神农本草经》将其列为上品。日常煮粥、煲汤时放几颗大枣，既能调味又能养身。但大枣滋腻，湿气重、腹胀者不宜多食，每日3-5枚为宜。</p>
+    
+    <h2>枸杞：滋补肝肾的"明眼果"</h2>
+    <p>枸杞子味甘性平，归肝、肾经，具有滋补肝肾、益精明目的功效，尤其适合长期用眼、熬夜的现代人。枸杞不宜高温久煮，煲汤时最好在出锅前放入。</p>
+    
+    <div class="tip-box">
+      <h4>推荐食疗方：枸杞山药粥</h4>
+      <p>鲜山药150克切块，与粳米同煮成粥，出锅前加入枸杞10克再煮5分钟。健脾益肾，老少皆宜。</p>
+    </div>
+    
+    <h2>山药：健脾益胃的"神仙之食"</h2>
+    <p>山药味甘性平，归脾、肺、肾经，能补脾养胃、生津益肺、补肾涩精。它性质平和，不寒不燥，几乎是唯一适合所有体质长期食用的补益食材。蒸食、煮粥、煲汤皆为上品。</p>
+    
+    <div class="tip-box">
+      <h4>温馨提示</h4>
+      <p>食疗贵在坚持与对症。食用前先辨清自身体质，寒者温之、热者清之，方能发挥食材的养生功效。食疗不能替代药物治疗，身体明显不适时请及时就医。</p>
+    </div>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../article/spring-liver.html" class="related-item">
+        <span class="related-tag">四季养生</span>
+        <div class="related-name">春季养肝正当时，教你三招疏肝理气</div>
+      </a>
+      <a href="../article/spleen-stomach.html" class="related-item">
+        <span class="related-tag">体质调理</span>
+        <div class="related-name">脾胃虚弱怎么调？食疗+按摩双管齐下</div>
+      </a>
+      <a href="../article/summer-health.html" class="related-item">
+        <span class="related-tag">四季养生</span>
+        <div class="related-name">夏季养心祛湿，这些食材要多吃</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

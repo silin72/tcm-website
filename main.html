@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻草记 - 草木有灵 颐养身心</title>
+    <style>
+        /* 全局重置 & 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", 宋体, sans-serif;
+        }
+        body {
+            background-color: #f8f5f2;
+            color: #5a4a3f;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+
+        /* 顶部导航栏 */
+        .header {
+            width: 100%;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+        .nav-left a {
+            font-size: 15px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-left a:hover {
+            color: #b8860b;
+        }
+        .nav-left a.active {
+            color: #b8860b;
+            font-weight: 500;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+
+        /* 横幅Banner区 */
+        .banner {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+        .banner-text {
+            width: 45%;
+        }
+        .banner-tag {
+            font-size: 12px;
+            color: #8b7355;
+            background-color: #f0e6d6;
+            padding: 2px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .banner-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #5a3921;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        .banner-title span {
+            color: #d2691e;
+        }
+        .banner-desc {
+            font-size: 14px;
+            color: #8b7355;
+            margin-bottom: 25px;
+        }
+        .banner-btns {
+            display: flex;
+            gap: 15px;
+        }
+        .banner-btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn-explore {
+            background-color: #8b5a2b;
+            color: #fff;
+        }
+        .btn-concept {
+            background-color: transparent;
+            border: 1px solid #8b5a2b;
+            color: #8b5a2b;
+        }
+        .banner-img {
+            width: 50%;
+            height: 400px;
+            background: url("img/首页1.jpg") center/contain no-repeat;
+            position: relative;
+        }
+        .banner-tip {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #8b7355;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+
+        /* 探索本草世界板块 */
+        .explore {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+        .explore-title {
+            font-size: 22px;
+            color: #5a3921;
+            margin-bottom: 5px;
+        }
+        .explore-subtitle {
+            font-size: 12px;
+            color: #8b7355;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        .explore-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .explore-card {
+            width: 24%;
+            height: 220px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        .explore-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .explore-card-text {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-size: 16px;
+            color: #fff;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+
+        /* 今日推荐板块 */
+        .daily {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            background-color: #f5ebe0;
+            border-radius: 8px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .daily-text {
+            width: 60%;
+        }
+        .daily-tag {
+            font-size: 12px;
+            color: #d2691e;
+            margin-bottom: 8px;
+        }
+        .daily-title {
+            font-size: 20px;
+            color: #5a3921;
+            margin-bottom: 10px;
+        }
+        .daily-desc {
+            font-size: 14px;
+            color: #8b7355;
+            margin-bottom: 15px;
+        }
+        .daily-features {
+            font-size: 13px;
+            color: #8b7355;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+        .daily-features li {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .daily-features li::before {
+            content: "•";
+            color: #d2691e;
+        }
+        .daily-btn {
+            padding: 8px 20px;
+            background-color: transparent;
+            border: 1px solid #8b5a2b;
+            color: #8b5a2b;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .daily-img {
+            width: 30%;
+            height: 200px;
+            background: url("img/首页2.jpg") center/contain no-repeat;
+        }
+
+
+        /* 互动区板块 */
+        .interact {
+            width: 100%;
+            background-color: #8b5a2b;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+        .interact-title {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .interact-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .interact-btn {
+            padding: 10px 25px;
+            background-color: #d2691e;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .interact-footer {
+            margin-top: 30px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+
+        /* 响应式适配 */
+        @media (max-width: 992px) {
+            .banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .banner-text, .banner-img {
+                width: 100%;
+            }
+            .banner-img {
+                margin-top: 20px;
+                height: 300px;
+            }
+            .banner-btns {
+                justify-content: center;
+            }
+            .explore-cards {
+                flex-wrap: wrap;
+            }
+            .explore-card {
+                width: 48%;
+                margin-bottom: 20px;
+            }
+            .daily {
+                flex-direction: column;
+                text-align: center;
+            }
+            .daily-text, .daily-img {
+                width: 100%;
+            }
+            .daily-img {
+                margin-top: 20px;
+                height: 180px;
+            }
+            .daily-features {
+                text-align: left;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        @media (max-width: 576px) {
+            .nav {
+                gap: 15px;
+                font-size: 12px;
+            }
+            .banner-title {
+                font-size: 24px;
+            }
+            .explore-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<header class="header">
+    <nav class="nav-left">
+        <a href="index.html" class="active">首页</a>
+        <a href="1.html">中药图谱</a>
+        <a href="prescription.html">经典方剂</a>
+        <a href="recipe.html">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html">问答社区</a>
+        <a href="articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+
+<!-- 横幅Banner区 -->
+<section class="banner">
+    <div class="banner-text">
+        <div class="banner-tag">探索东方本草智慧</div>
+        <h1 class="banner-title">草木有灵<br><span>颐养身心</span></h1>
+        <p class="banner-desc">在快节奏的现代生活中，寻草记带您回归自然。顺应四时之变，调和阴阳之衡，以一草一木的温润力量，唤醒身体内在的自愈潜能。</p>
+
+    </div>
+    <div class="banner-img">
+        <div class="banner-tip">今日宜 早起早睡，养精蓄锐</div>
+    </div>
+</section>
+
+
+<!-- 中药制作过程板块 -->
+<section class="explore">
+    <div class="explore-subtitle">TRADITIONAL CRAFTSMANSHIP</div>
+    <h2 class="explore-title">中药制作过程</h2>
+    <div class="explore-cards">
+        <div class="explore-card">
+            <img src="img/采摘.png" alt="采收采集">
+            <div class="explore-card-text">采收采集</div>
+        </div>
+        <div class="explore-card">
+            <img src="img/切片.png" alt="切片">
+            <div class="explore-card-text">切片</div>
+        </div>
+        <div class="explore-card">
+            <img src="img/清洗.png" alt="清洗">
+            <div class="explore-card-text">清洗</div>
+        </div>
+        <div class="explore-card">
+            <img src="img/晾晒.png" alt="晾晒">
+            <div class="explore-card-text">晾晒</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- 今日推荐板块 -->
+<section class="daily">
+    <div class="daily-text">
+        <div class="daily-tag">DAILY HIGHLIGHT</div>
+        <h3 class="daily-title">今日推荐：枸杞子</h3>
+        <p class="daily-desc">不仅是保温杯里的常客，更是滋补肝肾的良药。它可以明目、润肺，适合长期面对屏幕的现代人。</p>
+        <ul class="daily-features">
+            <li>滋补肝肾，益精明目</li>
+            <li>适合泡茶、煮粥、炖汤</li>
+        </ul>
+        <a href="gouqizi.html" class="daily-btn" style="display: inline-block; text-decoration: none; text-align: center;">查看详细介绍</a>
+    </div>
+    <div class="daily-img"></div>
+</section>
+
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

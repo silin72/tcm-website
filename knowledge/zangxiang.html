@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>藏象学说 - 中医知识库</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-header h1 {
+      font-size: 28px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+    }
+    .article-header .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #333;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content h2:first-child {
+      margin-top: 0;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .quote {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .zangfu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .zangfu-item {
+      background-color: #faf7f0;
+      padding: 18px;
+      border-radius: 8px;
+    }
+    .zangfu-item h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .zangfu-item p {
+      font-size: 13px;
+      text-indent: 0;
+      margin-bottom: 8px;
+    }
+    .zangfu-item p:last-child {
+      margin-bottom: 0;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html" class="active">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../viewports.html" class="back-btn">← 返回知识库</a>
+</div>
+
+<div class="content-wrapper">
+  <div class="article-header">
+    <h1>藏象学说</h1>
+    <span class="tag">脏腑理论</span>
+  </div>
+  
+  <div class="article-content">
+    <h2>藏象的基本概念</h2>
+    <p>藏象，又写作"脏象"，是指藏于体内的脏腑及其表现于外的生理病理征象。"藏"指藏于体内的脏腑，"象"指表现于外的生理病理现象。中医通过观察外在的征象来推断内在脏腑的功能状态。</p>
+    
+    <div class="quote">
+      "视其外应，以知其内脏，则知所病矣。" ——《黄帝内经》
+    </div>
+    
+    <h2>五脏六腑</h2>
+    <p>脏腑是人体内脏的总称，分为五脏和六腑。五脏指心、肝、脾、肺、肾，六腑指胆、胃、小肠、大肠、膀胱、三焦。</p>
+    
+    <div class="zangfu-grid">
+      <div class="zangfu-item">
+        <h4>🫀 心</h4>
+        <p><strong>生理功能：</strong>主血脉，主神志</p>
+        <p><strong>外在表现：</strong>其华在面，开窍于舌</p>
+      </div>
+      <div class="zangfu-item">
+        <h4>🫁 肺</h4>
+        <p><strong>生理功能：</strong>主气司呼吸，主宣发肃降</p>
+        <p><strong>外在表现：</strong>其华在毛，开窍于鼻</p>
+      </div>
+      <div class="zangfu-item">
+        <h4>🍃 肝</h4>
+        <p><strong>生理功能：</strong>主疏泄，主藏血</p>
+        <p><strong>外在表现：</strong>其华在爪，开窍于目</p>
+      </div>
+      <div class="zangfu-item">
+        <h4>🌾 脾</h4>
+        <p><strong>生理功能：</strong>主运化，主升清，主统血</p>
+        <p><strong>外在表现：</strong>其华在唇，开窍于口</p>
+      </div>
+      <div class="zangfu-item">
+        <h4>💧 肾</h4>
+        <p><strong>生理功能：</strong>藏精，主水，主纳气</p>
+        <p><strong>外在表现：</strong>其华在发，开窍于耳及二阴</p>
+      </div>
+      <div class="zangfu-item">
+        <h4>🔄 六腑</h4>
+        <p><strong>共同功能：</strong>传化水谷，泻而不藏</p>
+        <p><strong>特点：</strong>以通为用，以降为顺</p>
+      </div>
+    </div>
+    
+    <h2>脏腑之间的关系</h2>
+    <p>脏腑之间存在着密切的联系，如心与小肠相表里，肺与大肠相表里，脾与胃相表里，肝与胆相表里，肾与膀胱相表里。这种表里关系体现了脏腑功能的相互配合与协调。</p>
+    
+    <h2>藏象学说的临床意义</h2>
+    <p>藏象学说是中医诊断和治疗的理论基础。通过观察面色、舌象、脉象等外在表现，可以推断内在脏腑的功能状态，从而进行辨证论治。如肝开窍于目，目赤肿痛多与肝火有关；脾开窍于口，口淡无味多与脾虚有关。</p>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../knowledge/yinyang.html" class="related-item">
+        <div class="related-icon">☯️</div>
+        <div class="related-name">阴阳平衡</div>
+      </a>
+      <a href="../knowledge/tianren.html" class="related-item">
+        <div class="related-icon">🌿</div>
+        <div class="related-name">天人合一</div>
+      </a>
+      <a href="../knowledge/wuxing.html" class="related-item">
+        <div class="related-icon">🔄</div>
+        <div class="related-name">五行学说</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>天人合一 - 中医知识库</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #faf7f0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .back-section {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+    .back-btn:hover {
+      background-color: #8b5a2b;
+      color: #fff;
+      border-color: #8b5a2b;
+    }
+    .content-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    .article-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .article-header h1 {
+      font-size: 28px;
+      color: #8b5a2b;
+      margin-bottom: 10px;
+    }
+    .article-header .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #8b5a2b;
+      font-size: 12px;
+      border-radius: 12px;
+    }
+    .article-content {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .article-content h2 {
+      font-size: 20px;
+      color: #333;
+      margin: 25px 0 15px;
+      padding-left: 12px;
+      border-left: 3px solid #8b5a2b;
+    }
+    .article-content h2:first-child {
+      margin-top: 0;
+    }
+    .article-content p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      text-indent: 2em;
+    }
+    .article-content .quote {
+      background-color: #f5f0e6;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 3px solid #8b5a2b;
+      margin: 20px 0;
+      font-style: italic;
+      color: #666;
+    }
+    .season-box {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .season-item {
+      background-color: #faf7f0;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .season-item .icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    .season-item h4 {
+      font-size: 16px;
+      color: #8b5a2b;
+      margin-bottom: 8px;
+    }
+    .season-item p {
+      font-size: 13px;
+      text-indent: 0;
+      margin-bottom: 5px;
+    }
+    .related-section {
+      margin-top: 30px;
+    }
+    .related-title {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .related-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+    .related-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .related-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .related-name {
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+    <nav class="nav-left">
+        <a href="../index.html">首页</a>
+        <a href="../1.html">中药图谱</a>
+        <a href="../prescription.html">经典方剂</a>
+        <a href="../recipe.html">养生食谱</a>
+        <a href="../viewports.html" class="active">知识库</a>
+        <a href="../community.html">问答社区</a>
+        <a href="../articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="../profile.html">
+            <img src="../img/枸杞头像.jpg" alt="用户头像" class="user-avatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="back-section">
+  <a href="../viewports.html" class="back-btn">← 返回知识库</a>
+</div>
+
+<div class="content-wrapper">
+  <div class="article-header">
+    <h1>天人合一</h1>
+    <span class="tag">养生智慧</span>
+  </div>
+  
+  <div class="article-content">
+    <h2>天人合一的哲学思想</h2>
+    <p>"天人合一"是中国古代哲学的核心思想之一，也是中医理论的重要基础。它认为人体是一个小宇宙，与大自然这个大宇宙息息相通、密切相关。人的生理活动、病理变化与自然界的变化规律是相适应的。</p>
+    
+    <div class="quote">
+      "人与天地相参也，与日月相应也。" ——《黄帝内经》
+    </div>
+    
+    <h2>四时养生法则</h2>
+    <p>中医强调"春夏养阳，秋冬养阴"。春夏季节，阳气生发，人体阳气外浮，应顺应自然，保护体内阳气；秋冬季节，阴气渐盛，人体阳气内敛，应注意保养阴精。</p>
+    
+    <div class="season-box">
+      <div class="season-item">
+        <div class="icon">🌸</div>
+        <h4>春生</h4>
+        <p>夜卧早起，广步于庭</p>
+        <p>生而勿杀，予而勿夺</p>
+      </div>
+      <div class="season-item">
+        <div class="icon">☀️</div>
+        <h4>夏长</h4>
+        <p>夜卧早起，无厌于日</p>
+        <p>使志无怒，使气得泄</p>
+      </div>
+      <div class="season-item">
+        <div class="icon">🍂</div>
+        <h4>秋收</h4>
+        <p>早卧早起，与鸡俱兴</p>
+        <p>收敛神气，使志安宁</p>
+      </div>
+      <div class="season-item">
+        <div class="icon">❄️</div>
+        <h4>冬藏</h4>
+        <p>早卧晚起，必待日光</p>
+        <p>去寒就温，无泄皮肤</p>
+      </div>
+    </div>
+    
+    <h2>昼夜节律与养生</h2>
+    <p>人体的气血运行、脏腑功能都有昼夜节律。子时（23-1点）胆经当令，丑时（1-3点）肝经当令，此时应处于深度睡眠状态，以利于肝胆的解毒和造血功能。</p>
+    <p>午时（11-13点）心经当令，此时小憩片刻，可以养心安神。遵循"日出而作，日落而息"的自然规律，是保持健康的重要方法。</p>
+    
+    <h2>地域环境与体质</h2>
+    <p>不同地域的自然环境会影响人的体质特点。北方寒冷干燥，人多腠理致密，易生寒病；南方湿热，人多腠理疏松，易生热病。养生应根据所处地域的气候特点，采取相应的调养方法。</p>
+  </div>
+  
+  <div class="related-section">
+    <h3 class="related-title">相关推荐</h3>
+    <div class="related-grid">
+      <a href="../knowledge/yinyang.html" class="related-item">
+        <div class="related-icon">☯️</div>
+        <div class="related-name">阴阳平衡</div>
+      </a>
+      <a href="../knowledge/qixue.html" class="related-item">
+        <div class="related-icon">💫</div>
+        <div class="related-name">气血津液</div>
+      </a>
+      <a href="../knowledge/zangxiang.html" class="related-item">
+        <div class="related-icon">🫀</div>
+        <div class="related-name">藏象学说</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>本草互动社区</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+    body {
+      background-color: #f8f5f2;
+      color: #333;
+    }
+
+    /* 顶部导航栏 */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    /* 帖子卡片 - 多个卡片排列，下滑可浏览 */
+    .post-card {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e8f5e9;
+    }
+    .author-name {
+      font-weight: bold;
+      color: #2c5f2d;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .post-time {
+      font-size: 12px;
+      color: #999;
+      margin-left: 10px;
+    }
+    .post-content {
+      line-height: 1.7;
+      margin-bottom: 15px;
+      padding-left: 62px;
+      text-align: center;
+    }
+    .post-content p {
+      margin-bottom: 8px;
+      text-align: left;
+    }
+
+    /* 帖子配图 */
+    .post-img {
+      width: 50%;
+      max-width: 280px;
+      border-radius: 8px;
+      margin: 10px 0 10px 0;
+      display: block;
+      text-align: left;
+    }
+
+    /* 互动按钮（点赞/评论） */
+    .post-action {
+      display: flex;
+      gap: 20px;
+      padding-left: 62px;
+      margin-bottom: 15px;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+      cursor: pointer;
+    }
+    .action-btn:hover {
+      color: #2c5f2d;
+    }
+
+    /* 评论区 */
+    .comment-section {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #eee;
+    }
+    .comment-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      padding-left: 62px;
+    }
+    .comment {
+      background: #f8fff8;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 8px;
+      margin-left: 62px;
+    }
+    .comment-author {
+      color: #1e8449;
+      font-weight: bold;
+    }
+    .comment-text {
+      margin-top: 4px;
+      color: #444;
+      font-size: 14px;
+    }
+    /* 回复输入框 */
+    .reply-input-area {
+      display: none;
+      margin-left: 62px;
+      margin-top: 12px;
+      gap: 10px;
+    }
+    .reply-input-area.active {
+      display: flex;
+    }
+    .reply-input-area input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      outline: none;
+      font-size: 14px;
+    }
+    .reply-input-area button {
+      padding: 8px 18px;
+      background: #8b5a2b;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .reply-input-area button:hover {
+      background: #704a22;
+    }
+
+    /* 加载提示 */
+    .load-tip {
+      text-align: center;
+      color: #999;
+      padding: 20px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<header class="header">
+    <nav class="nav-left">
+        <a href="index.html">首页</a>
+        <a href="1.html">中药图谱</a>
+        <a href="prescription.html">经典方剂</a>
+        <a href="recipe.html">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html" class="active">问答社区</a>
+        <a href="articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<!-- 帖子1：防风 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/防风头像.jpg" class="avatar" alt="防风头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>防风·御前侍卫
+        <span class="post-time">2小时前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「昨夜东风又起，微臣已备好护体结界✨」</p>
+    <p>疏风散寒+祛邪护表，花粉过敏者速来结盟！</p>
+    <p>PS：与艾草大人组队可解锁【驱寒双侠】皮肤 🧧</p>
+    <img src="img/防风图片.jpg" class="post-img" alt="防风配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">58</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply1')">💬 评论 (<span class="comment-count" id="count1">12</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply1">
+    <input type="text" placeholder="回复防风·御前侍卫..." onkeypress="if(event.key==='Enter') submitReply('reply1', 'count1')">
+    <button onclick="submitReply('reply1', 'count1')">发送</button>
+  </div>
+  <div class="comment-section" id="comments1">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">艾草：</div>
+      <div class="comment-text">防风兄，今夜艾灸房已备好姜枣茶，候君共驱湿气✨</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">生姜：</div>
+      <div class="comment-text">+1！本姜军愿为防风大人擂鼓助威 🎉</div>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子2：艾草 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/艾草头像.jpg" class="avatar" alt="艾草头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>艾草·温阳使者
+        <span class="post-time">4小时前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「春日艾灸正当时，温通经络暖全身🌞」</p>
+    <p>分享3个居家艾灸小技巧：</p>
+    <p>1. 艾灸关元穴：温补元气，改善畏寒</p>
+    <p>2. 艾灸足三里：健脾和胃，增强体质</p>
+    <p>3. 艾灸大椎穴：疏风解表，缓解肩颈不适</p>
+    <img src="img/艾草图片.jpg" class="post-img" alt="艾草配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">126</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply2')">💬 评论 (<span class="comment-count" id="count2">35</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply2">
+    <input type="text" placeholder="回复艾草·温阳使者..." onkeypress="if(event.key==='Enter') submitReply('reply2', 'count2')">
+    <button onclick="submitReply('reply2', 'count2')">发送</button>
+  </div>
+  <div class="comment-section" id="comments2">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">当归：</div>
+      <div class="comment-text">艾大人的技巧太实用了！昨晚试了足三里，睡得超香😴</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">陈皮：</div>
+      <div class="comment-text">求问艾灸后需要注意什么？可以马上洗澡吗？</div>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子3：枸杞 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/枸杞头像.jpg" class="avatar" alt="枸杞头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>枸杞·明目仙君
+        <span class="post-time">1天前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「养肝明目，我有独家配方🥤」</p>
+    <p>枸杞+菊花+决明子，沸水冲泡5分钟，每天一杯，告别眼疲劳！</p>
+    <p>适合经常看电脑/手机的小伙伴～</p>
+    <img src="img/枸杞图片.jpg" class="post-img" alt="枸杞配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">98</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply3')">💬 评论 (<span class="comment-count" id="count3">21</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply3">
+    <input type="text" placeholder="回复枸杞·明目仙君..." onkeypress="if(event.key==='Enter') submitReply('reply3', 'count3')">
+    <button onclick="submitReply('reply3', 'count3')">发送</button>
+  </div>
+  <div class="comment-section" id="comments3">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">菊花：</div>
+      <div class="comment-text">和枸杞仙君搭档，效果翻倍！😘</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">决明子：</div>
+      <div class="comment-text">+1！熬夜党必备组合，亲测有效✨</div>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子4：当归 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/当归.jpg" class="avatar" alt="当归头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>当归·补血圣手
+        <span class="post-time">2天前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「女人圣药，气血双补🌸」</p>
+    <p>分享当归养生茶的3种搭配：</p>
+    <p>1. 当归+红枣：补血养颜，面色红润</p>
+    <p>2. 当归+黄芪：气血双补，精力充沛</p>
+    <p>3. 当归+生姜：温经散寒，缓解痛经</p>
+    <img src="img/当归.jpg" class="post-img" alt="当归配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">156</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply4')">💬 评论 (<span class="comment-count" id="count4">42</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply4">
+    <input type="text" placeholder="回复当归·补血圣手..." onkeypress="if(event.key==='Enter') submitReply('reply4', 'count4')">
+    <button onclick="submitReply('reply4', 'count4')">发送</button>
+  </div>
+  <div class="comment-section" id="comments4">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">红枣：</div>
+      <div class="comment-text">和当归姐姐搭配，甜甜蜜蜜补气血！❤️</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">黄芪：</div>
+      <div class="comment-text">气血双补组合，养生必备！💪</div>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子5：陈皮 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/陈皮茯苓薏米水.jpg" class="avatar" alt="陈皮头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>陈皮·理气大师
+        <span class="post-time">3天前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「理气健脾，燥湿化痰🍊」</p>
+    <p>陈皮泡水喝的正确方法：</p>
+    <p>1. 取陈皮3-5克，撕成小块</p>
+    <p>2. 用沸水冲泡，加盖焖10分钟</p>
+    <p>3. 可反复冲泡，味道甘甜清香</p>
+    <p>适合：消化不良、食欲不振、痰多咳嗽</p>
+    <img src="img/陈皮茯苓薏米水.jpg" class="post-img" alt="陈皮配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">89</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply5')">💬 评论 (<span class="comment-count" id="count5">28</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply5">
+    <input type="text" placeholder="回复陈皮·理气大师..." onkeypress="if(event.key==='Enter') submitReply('reply5', 'count5')">
+    <button onclick="submitReply('reply5', 'count5')">发送</button>
+  </div>
+  <div class="comment-section" id="comments5">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">茯苓：</div>
+      <div class="comment-text">陈皮兄，咱们搭配祛湿效果翻倍！💧</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">薏米：</div>
+      <div class="comment-text">+1！陈皮薏米水，夏日祛湿神器🌞</div>
+    </div>
+  </div>
+</div>
+
+<!-- 帖子6：黄精 -->
+<div class="post-card">
+  <div class="post-header">
+    <img src="img/黄精.jpg" class="avatar" alt="黄精头像">
+    <div>
+      <div class="author-name">
+        <span>🌿</span>黄精·仙人余粮
+        <span class="post-time">4天前</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>「补气养阴，健脾润肺🌿」</p>
+    <p>黄精的3种养生吃法：</p>
+    <p>1. 黄精泡水：每日10克，滋阴润燥</p>
+    <p>2. 黄精炖鸡：补气养血，增强体质</p>
+    <p>3. 黄精粥：健脾养胃，延年益寿</p>
+    <p>古人称黄精为"仙人余粮"，是养生佳品</p>
+    <img src="img/黄精.jpg" class="post-img" alt="黄精配图">
+  </div>
+  <div class="post-action">
+    <div class="action-btn" onclick="toggleLike(this)">❤️ 点赞 (<span class="like-count">112</span>)</div>
+    <div class="action-btn" onclick="toggleReply('reply6')">💬 评论 (<span class="comment-count" id="count6">33</span>)</div>
+  </div>
+  <div class="reply-input-area" id="reply6">
+    <input type="text" placeholder="回复黄精·仙人余粮..." onkeypress="if(event.key==='Enter') submitReply('reply6', 'count6')">
+    <button onclick="submitReply('reply6', 'count6')">发送</button>
+  </div>
+  <div class="comment-section" id="comments6">
+    <div class="comment-title">评论：</div>
+    <div class="comment">
+      <div class="comment-author">枸杞：</div>
+      <div class="comment-text">黄精枸杞茶，补肾益精好搭档！🍵</div>
+    </div>
+    <div class="comment">
+      <div class="comment-author">山药：</div>
+      <div class="comment-text">黄精山药粥，健脾养胃首选！🥣</div>
+    </div>
+  </div>
+</div>
+
+<!-- 加载提示 -->
+<div class="load-tip">↓ 下滑查看更多精彩内容 ↓</div>
+
+<!-- 交互功能JS -->
+<script>
+  // 监听滚动，模拟加载更多（实际项目可对接后端接口）
+  window.addEventListener('scroll', function() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+
+    // 滚动到底部时提示
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      document.querySelector('.load-tip').textContent = "已经到底啦～快去分享你的养生心得吧！";
+    }
+  });
+
+  // 切换回复输入框显示/隐藏
+  function toggleReply(replyId) {
+    const replyArea = document.getElementById(replyId);
+    replyArea.classList.toggle('active');
+    if (replyArea.classList.contains('active')) {
+      replyArea.querySelector('input').focus();
+    }
+  }
+
+  // 提交回复
+  function submitReply(replyId, countId) {
+    const replyArea = document.getElementById(replyId);
+    const input = replyArea.querySelector('input');
+    const content = input.value.trim();
+    
+    if (!content) return;
+    
+    // 获取对应的评论区域
+    const postNum = replyId.replace('reply', '');
+    const commentsSection = document.getElementById('comments' + postNum);
+    
+    // 创建新评论
+    const newComment = document.createElement('div');
+    newComment.className = 'comment';
+    newComment.innerHTML = `
+      <div class="comment-author">我：</div>
+      <div class="comment-text">${content}</div>
+    `;
+    
+    // 添加到评论列表
+    commentsSection.appendChild(newComment);
+    
+    // 清空输入框
+    input.value = '';
+    
+    // 隐藏回复框
+    replyArea.classList.remove('active');
+    
+    // 更新评论数
+    const countSpan = document.getElementById(countId);
+    const currentCount = parseInt(countSpan.textContent);
+    countSpan.textContent = currentCount + 1;
+  }
+
+  // 点赞功能
+  function toggleLike(btn) {
+    const countSpan = btn.querySelector('.like-count');
+    const currentCount = parseInt(countSpan.textContent);
+    
+    if (btn.classList.contains('liked')) {
+      btn.classList.remove('liked');
+      countSpan.textContent = currentCount - 1;
+      btn.style.color = '#666';
+    } else {
+      btn.classList.add('liked');
+      countSpan.textContent = currentCount + 1;
+      btn.style.color = '#e74c3c';
+    }
+  }
+
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>

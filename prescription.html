@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典方剂 - 中医药材网</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f8f5f2;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            width: 100%;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+        .nav-left a {
+            font-size: 15px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-left a:hover {
+            color: #b8860b;
+        }
+        .nav-left a.active {
+            color: #b8860b;
+            font-weight: 500;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-box input {
+            width: 220px;
+            padding: 8px 35px 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background-color: #e8e8e8;
+            font-size: 14px;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: #999;
+        }
+        .search-box .search-icon {
+            position: absolute;
+            right: 12px;
+            color: #666;
+            cursor: pointer;
+        }
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* 页面标题 */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+        .page-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .page-subtitle {
+            font-size: 14px;
+            color: #999;
+            letter-spacing: 2px;
+        }
+
+        /* 搜索和筛选区域 */
+        .filter-section {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 0 20px;
+        }
+        .search-box-large {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .search-box-large input {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #333;
+            outline: none;
+        }
+        .search-box-large input::placeholder {
+            color: #999;
+        }
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background-color: #b8860b;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .search-btn:hover {
+            background-color: #9a7209;
+        }
+        .search-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+
+        /* 筛选器 */
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filter-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .filter-select {
+            padding: 8px 35px 8px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            appearance: none;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M6 8L1 3h10z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        /* 结果数量 */
+        .result-count {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .result-count span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 方剂卡片网格 */
+        .prescription-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .prescription-card {
+            position: relative;
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .prescription-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .prescription-image {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .prescription-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .prescription-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-right: 170px;
+        }
+
+        .prescription-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .prescription-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #f5f0e6;
+            color: #b8860b;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .prescription-source {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .prescription-section {
+            margin-bottom: 12px;
+        }
+
+        .prescription-section-title {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .prescription-section-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .prescription-divider {
+            height: 1px;
+            background-color: #f0f0f0;
+            margin: 15px 0;
+        }
+
+        .view-detail-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 12px;
+            background-color: #f8f5f0;
+            color: #b8860b;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .view-detail-btn:hover {
+            background-color: #f0e8d8;
+        }
+
+        .view-detail-btn::before {
+            content: "→";
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <nav class="nav-left">
+            <a href="index.html">首页</a>
+            <a href="1.html">中药图谱</a>
+            <a href="prescription.html" class="active">经典方剂</a>
+            <a href="recipe.html">养生食谱</a>
+            <a href="viewports.html">知识库</a>
+            <a href="community.html">问答社区</a>
+            <a href="articles.html">养生文章</a>
+        </nav>
+        <div class="nav-right">
+            <a href="profile.html">
+                <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+            </a>
+        </div>
+    </header>
+
+    <!-- 页面标题 -->
+    <div class="page-header">
+        <h1 class="page-title">经典方剂</h1>
+        <p class="page-subtitle">传承千年智慧，汇聚名医名方</p>
+    </div>
+
+    <!-- 搜索和筛选 -->
+    <div class="filter-section">
+        <div class="search-box-large">
+            <input type="text" id="searchInput" placeholder="搜索方剂名称、来源..." onkeypress="if(event.key==='Enter') searchPrescriptions()">
+            <button class="search-btn" onclick="searchPrescriptions()">
+                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+        </div>
+        
+        <div class="filter-row">
+            <div class="filter-item">
+                <span class="filter-label">分类：</span>
+                <select class="filter-select" onchange="filterPrescriptions()">
+                    <option>全部分类</option>
+                    <option>补益剂</option>
+                    <option>解表剂</option>
+                    <option>清热剂</option>
+                    <option>理气剂</option>
+                    <option>理血剂</option>
+                    <option>祛湿剂</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <span class="filter-label">来源：</span>
+                <select class="filter-select" onchange="filterPrescriptions()">
+                    <option>全部来源</option>
+                    <option>伤寒论</option>
+                    <option>金匮要略</option>
+                    <option>太平惠民和剂局方</option>
+                    <option>医方集解</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="result-count">找到 <span>6</span> 个方剂</div>
+    </div>
+
+    <!-- 方剂卡片网格 -->
+    <div class="prescription-grid">
+        <!-- 四君子汤 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/地黄.jpg" alt="四君子汤" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">四君子汤</div>
+                <div class="prescription-tag">补益剂</div>
+            </div>
+            <div class="prescription-source">来源：《太平惠民和剂局方》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">人参、白术、茯苓、甘草</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">益气健脾，主治脾胃气虚证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="sijunzi.html" class="view-detail-btn">了解更多</a>
+        </div>
+
+        <!-- 四物汤 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/当归.jpg" alt="四物汤" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">四物汤</div>
+                <div class="prescription-tag">补益剂</div>
+            </div>
+            <div class="prescription-source">来源：《太平惠民和剂局方》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">当归、川芎、白芍、熟地黄</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">补血和血，主治营血虚滞证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="siwu.html" class="view-detail-btn">了解更多</a>
+        </div>
+
+        <!-- 桂枝汤 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/生姜.jpg" alt="桂枝汤" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">桂枝汤</div>
+                <div class="prescription-tag">解表剂</div>
+            </div>
+            <div class="prescription-source">来源：《伤寒论》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">桂枝、白芍、生姜、大枣、甘草</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">解肌发表，调和营卫，主治外感风寒表虚证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="guizhi.html" class="view-detail-btn">了解更多</a>
+        </div>
+
+        <!-- 麻黄汤 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/艾草.jpg" alt="麻黄汤" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">麻黄汤</div>
+                <div class="prescription-tag">解表剂</div>
+            </div>
+            <div class="prescription-source">来源：《伤寒论》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">麻黄、桂枝、杏仁、甘草</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">发汗解表，宣肺平喘，主治外感风寒表实证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="mahuang.html" class="view-detail-btn">了解更多</a>
+        </div>
+
+        <!-- 六味地黄丸 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/黄精.jpg" alt="六味地黄丸" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">六味地黄丸</div>
+                <div class="prescription-tag">补益剂</div>
+            </div>
+            <div class="prescription-source">来源：《小儿药证直诀》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">熟地黄、山茱萸、山药、泽泻、茯苓、丹皮</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">滋阴补肾，主治肾阴亏损证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="liuwei.html" class="view-detail-btn">了解更多</a>
+        </div>
+
+        <!-- 逍遥散 -->
+        <div class="prescription-card">
+            <div class="prescription-image">
+                <img src="img/沙参.jpg" alt="逍遥散" onerror="this.src='img/沙参.jpg'">
+            </div>
+            <div class="prescription-header">
+                <div class="prescription-name">逍遥散</div>
+                <div class="prescription-tag">理气剂</div>
+            </div>
+            <div class="prescription-source">来源：《太平惠民和剂局方》</div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">组成</div>
+                <div class="prescription-section-content">柴胡、当归、白芍、白术、茯苓、甘草、薄荷、生姜</div>
+            </div>
+            <div class="prescription-section">
+                <div class="prescription-section-title">功效</div>
+                <div class="prescription-section-content">疏肝解郁，健脾和营，主治肝郁血虚脾弱证</div>
+            </div>
+            <div class="prescription-divider"></div>
+            <a href="xiaoyao.html" class="view-detail-btn">了解更多</a>
+        </div>
+    </div>
+
+    <script>
+        // 搜索功能
+        function searchPrescriptions() {
+            const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.prescription-card');
+            let count = 0;
+            
+            cards.forEach(card => {
+                const name = card.querySelector('.prescription-name').textContent.toLowerCase();
+                const source = card.querySelector('.prescription-source').textContent.toLowerCase();
+                const content = card.querySelector('.prescription-section-content').textContent.toLowerCase();
+                
+                if (name.includes(keyword) || source.includes(keyword) || content.includes(keyword)) {
+                    card.style.display = 'block';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.querySelector('.result-count span').textContent = count;
+        }
+        
+        // 筛选功能
+        function filterPrescriptions() {
+            const category = document.querySelectorAll('.filter-select')[0].value;
+            const source = document.querySelectorAll('.filter-select')[1].value;
+            const cards = document.querySelectorAll('.prescription-card');
+            let count = 0;
+            
+            cards.forEach(card => {
+                const tag = card.querySelector('.prescription-tag').textContent;
+                const cardSource = card.querySelector('.prescription-source').textContent;
+                
+                let showByCategory = category === '全部分类' || tag.includes(category.replace('剂', ''));
+                let showBySource = source === '全部来源' || cardSource.includes(source);
+                
+                if (showByCategory && showBySource) {
+                    card.style.display = 'block';
+                    count++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            document.querySelector('.result-count span').textContent = count;
+        }
+
+        // 页面加载时读取保存的头像
+        window.addEventListener('load', function() {
+            const savedAvatar = localStorage.getItem('userAvatar');
+            if (savedAvatar) {
+                const navAvatar = document.getElementById('navAvatar');
+                if (navAvatar) {
+                    navAvatar.src = savedAvatar;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

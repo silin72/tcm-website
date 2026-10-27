@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>寻草记 - 本草图鉴</title>
+  <style>
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Microsoft YaHei', sans-serif;
+    }
+
+    body {
+      background-color: #f8f5f2;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* 顶部导航栏 */
+    .header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+
+    /* 主要内容区域 */
+    .main-content {
+      margin-top: 60px;
+      padding: 80px 0;
+    }
+
+    /* 标题区域 */
+    .title-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 15px;
+    }
+
+    .main-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #5d4037;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      font-size: 14px;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 筛选和搜索区域 */
+    .filter-search {
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      padding: 0 20px;
+    }
+
+    /* 搜索框 */
+    .search-box-large {
+      width: 100%;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .search-box-large input {
+      width: 100%;
+      padding: 14px 50px 14px 20px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      color: #333;
+      outline: none;
+    }
+    .search-box-large input::placeholder {
+      color: #999;
+    }
+    .search-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      background-color: #b8860b;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    .search-btn:hover {
+      background-color: #9a7209;
+    }
+    .search-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    /* 筛选器 */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+    .filter-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .filter-label {
+      font-size: 14px;
+      color: #666;
+    }
+    .filter-select {
+      padding: 8px 35px 8px 15px;
+      background-color: #f0f0f0;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23666" d="M6 8L1 3h10z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    /* 结果数量 */
+    .result-count {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .result-count span {
+      font-weight: bold;
+      color: #333;
+    }
+
+    /* 药材卡片网格 */
+    .herb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .herb-card {
+      position: relative;
+      background-color: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .herb-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .herb-image {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 180px;
+      height: 180px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .herb-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .herb-content {
+      padding-right: 100px;
+    }
+
+    .herb-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .herb-scientific {
+      font-size: 14px;
+      color: #999;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    .herb-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background-color: #f5f0e6;
+      color: #b8860b;
+      font-size: 13px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      align-self: flex-start;
+    }
+
+    .herb-info {
+      margin-bottom: 12px;
+    }
+
+    .herb-info-row {
+      display: flex;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .herb-info-label {
+      color: #999;
+      width: 50px;
+      flex-shrink: 0;
+    }
+
+    .herb-info-value {
+      color: #666;
+    }
+
+    .herb-divider {
+      height: 1px;
+      background-color: #f0f0f0;
+      margin: 15px 0;
+    }
+
+    .herb-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      flex: 1;
+    }
+
+    .view-detail-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 12px;
+      background-color: #f8f5f0;
+      color: #b8860b;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .view-detail-btn:hover {
+      background-color: #f0e8d8;
+    }
+
+    .view-detail-btn::before {
+      content: "→";
+    }
+
+    /* 加载更多按钮 */
+    .load-more {
+      text-align: center;
+      margin: 40px 0;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .load-more:hover {
+      color: #5d4037;
+    }
+
+    /* 提示信息 */
+    .notice {
+      background-color: #f5f5f5;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .notice-title {
+      font-size: 16px;
+      color: #5d4037;
+      margin-bottom: 10px;
+    }
+
+    .notice-text {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 1200px) {
+      .herb-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .herb-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .herb-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-search {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .category-tabs {
+        flex-wrap: wrap;
+      }
+
+      .category-tab {
+        flex: 1;
+        min-width: 80px;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<header class="header">
+    <nav class="nav-left">
+        <a href="index.html">首页</a>
+        <a href="1.html" class="active">中药图谱</a>
+        <a href="prescription.html">经典方剂</a>
+        <a href="recipe.html">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html">问答社区</a>
+        <a href="articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+
+<!-- 主要内容 -->
+<main class="main-content">
+  <!-- 标题区域 -->
+  <section class="title-section">
+    <div class="subtitle">HERBAL ENCYCLOPEDIA</div>
+    <h1 class="main-title">本草图鉴</h1>
+    <p class="description">“神农尝百草，始有医药。”<br>在这里，我们精选常见中药材，带您领略草木之灵，探寻自然疗愈的力量。</p>
+  </section>
+
+  <!-- 筛选和搜索区域 -->
+  <section class="filter-search">
+    <!-- 搜索框 -->
+    <div class="search-box-large">
+      <input type="text" id="searchInput" placeholder="搜索药材名称、拉丁名..." onkeypress="if(event.key==='Enter') searchHerbs()">
+      <button class="search-btn" onclick="searchHerbs()">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </button>
+    </div>
+    
+    <!-- 筛选器 -->
+    <div class="filter-row">
+      <div class="filter-item">
+        <span class="filter-label">分类：</span>
+        <select class="filter-select">
+          <option>全部分类</option>
+          <option>补益药</option>
+          <option>清热药</option>
+          <option>解表药</option>
+          <option>理气药</option>
+          <option>利湿药</option>
+          <option>安神药</option>
+        </select>
+      </div>
+      <div class="filter-item">
+        <span class="filter-label">性味：</span>
+        <select class="filter-select">
+          <option>全部性味</option>
+          <option>甘</option>
+          <option>苦</option>
+          <option>辛</option>
+          <option>酸</option>
+          <option>咸</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- 结果数量 -->
+    <div class="result-count">找到 <span>7</span> 个药材</div>
+  </section>
+
+  <!-- 药材卡片网格 -->
+  <section class="herb-grid">
+    <!-- 黄芪 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/黄芪.jpg" alt="黄芪" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">黄芪</div>
+      <div class="herb-scientific">Astragali Radix</div>
+      <div class="herb-tag">补益药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">甘，微温</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归肺、脾经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">补气固表，利尿托毒</div>
+      <a href="huangqi.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 人参 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/地黄.jpg" alt="人参" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">人参</div>
+      <div class="herb-scientific">Panax ginseng</div>
+      <div class="herb-tag">补益药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">微温，味甘、微苦</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归脾、肺、心经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">大补元气，复脉固脱，补脾益肺</div>
+      <a href="renshen.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 当归 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/当归.jpg" alt="当归" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">当归</div>
+      <div class="herb-scientific">Angelica sinensis</div>
+      <div class="herb-tag">补益药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">性温，味甘、辛</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归肝、心、脾经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">补血活血，调经止痛，润肠通便</div>
+      <a href="danggui.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 枸杞子 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/枸杞图片.jpg" alt="枸杞子" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">枸杞子</div>
+      <div class="herb-scientific">Lycium barbarum</div>
+      <div class="herb-tag">补益药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">性平，味甘</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归肝、肾经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">滋补肝肾，益精明目</div>
+      <a href="gouqizi.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 金银花 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/艾草.jpg" alt="金银花" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">金银花</div>
+      <div class="herb-scientific">Lonicera japonica</div>
+      <div class="herb-tag">清热药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">性寒，味甘</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归肺、心、胃经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">清热解毒，疏散风热</div>
+      <a href="jinyinhua.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 陈皮 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/黄精.jpg" alt="陈皮" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">陈皮</div>
+      <div class="herb-scientific">Citri Reticulatae</div>
+      <div class="herb-tag">理气药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">性温，味辛、苦</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归脾、肺经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">理气健脾，燥湿化痰</div>
+      <a href="chenpi.html" class="view-detail-btn">了解更多</a>
+    </div>
+
+    <!-- 茯苓 -->
+    <div class="herb-card">
+      <div class="herb-image">
+        <img src="img/沙参.jpg" alt="茯苓" onerror="this.src='img/沙参.jpg'">
+      </div>
+      <div class="herb-name">茯苓</div>
+      <div class="herb-scientific">Poria</div>
+      <div class="herb-tag">利湿药</div>
+      <div class="herb-info">
+        <div class="herb-info-row">
+          <span class="herb-info-label">性味：</span>
+          <span class="herb-info-value">性平，味甘、淡</span>
+        </div>
+        <div class="herb-info-row">
+          <span class="herb-info-label">归经：</span>
+          <span class="herb-info-value">归心、肺、脾、肾经</span>
+        </div>
+      </div>
+      <div class="herb-divider"></div>
+      <div class="herb-description">利水渗湿，健脾，宁心</div>
+      <a href="fuling.html" class="view-detail-btn">了解更多</a>
+    </div>
+  </section>
+
+  <!-- 加载更多按钮 -->
+  <div class="load-more">加载更多药材 ↓</div>
+
+  <!-- 提示信息 -->
+  <section class="notice">
+    <div class="notice-title">药材使用安全提示</div>
+    <div class="notice-text">中药材虽然源于自然，但"是药三分毒"，使用不当亦可伤身。本站内容仅供科普参考，不能替代专业医疗建议。<br>如需进行疾病治疗或长期服用，请务必咨询执业中医师。</div>
+  </section>
+</main>
+
+<script>
+  // 搜索功能
+  function searchHerbs() {
+    const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.herb-card');
+    let count = 0;
+    
+    cards.forEach(card => {
+      const name = card.querySelector('.herb-name').textContent.toLowerCase();
+      const scientific = card.querySelector('.herb-scientific').textContent.toLowerCase();
+      const description = card.querySelector('.herb-description').textContent.toLowerCase();
+      
+      if (name.includes(keyword) || scientific.includes(keyword) || description.includes(keyword)) {
+        card.style.display = 'block';
+        count++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // 更新结果数量
+    document.querySelector('.result-count span').textContent = count;
+  }
+  
+  // 分类筛选功能
+  document.querySelectorAll('.filter-select')[0].addEventListener('change', function() {
+    filterHerbs();
+  });
+  
+  // 性味筛选功能
+  document.querySelectorAll('.filter-select')[1].addEventListener('change', function() {
+    filterHerbs();
+  });
+  
+  function filterHerbs() {
+    const category = document.querySelectorAll('.filter-select')[0].value;
+    const taste = document.querySelectorAll('.filter-select')[1].value;
+    const cards = document.querySelectorAll('.herb-card');
+    let count = 0;
+    
+    cards.forEach(card => {
+      const tag = card.querySelector('.herb-tag').textContent;
+      const tasteValue = card.querySelector('.herb-info-row:first-child .herb-info-value').textContent;
+      
+      let showByCategory = category === '全部分类' || tag.includes(category.replace('药', ''));
+      let showByTaste = taste === '全部性味' || tasteValue.includes(taste);
+      
+      if (showByCategory && showByTaste) {
+        card.style.display = 'block';
+        count++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    document.querySelector('.result-count span').textContent = count;
+  }
+
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+
+</html>

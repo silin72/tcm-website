@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>枸杞子 - 中草药详情</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Microsoft Yahei", sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #e0e0e0;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .detail-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .herb-img-box {
+      flex: 0 0 280px;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .herb-detail-img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .img-bottom-info {
+      width: 100%;
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    .img-info-item {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+    .img-info-label {
+      color: #333;
+      font-weight: bold;
+    }
+    .herb-info-box {
+      flex: 1;
+      min-width: 300px;
+      padding-top: 10px;
+    }
+    .herb-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .herb-english {
+      font-size: 16px;
+      color: #999;
+      margin-bottom: 15px;
+      display: block;
+    }
+    .herb-tag {
+      display: inline-block;
+      background: #9c27b0;
+      color: white;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .info-section {
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .section-content {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+    }
+    .warning {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      color: #856404;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .herb-img-box {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="fanhui" class="back-btn">← 返回中草药列表</a>
+
+<div class="detail-container">
+  <div class="herb-img-box">
+    <img src="img/沙参.jpg" alt="枸杞子" class="herb-detail-img">
+    <div class="img-bottom-info">
+      <div class="img-info-item"><span class="img-info-label">别名：</span>枸杞、苟起子、枸杞果</div>
+      <div class="img-info-item"><span class="img-info-label">产地：</span>宁夏、甘肃、青海</div>
+      <div class="img-info-item"><span class="img-info-label">采收：</span>夏、秋二季采收，晒干</div>
+    </div>
+  </div>
+  <div class="herb-info-box">
+    <h1 class="herb-title">枸杞子</h1>
+    <span class="herb-english">Lycium barbarum</span>
+    <span class="herb-tag">滋补</span>
+
+    <div class="info-section">
+      <h2 class="section-title">性味归经</h2>
+      <div class="section-content">
+        性平，味甘；归肝、肾经
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="section-title">功效与应用</h2>
+      <div class="section-content">
+        核心功效为滋补肝肾，益精明目。是日常养生常用食材。<br><br>
+        主要应用：<br>
+        1. 虚劳精亏，腰膝酸痛，眩晕耳鸣，阳痿遗精；<br>
+        2. 内热消渴，血虚萎黄，目昏不明；<br>
+        3. 现代常用于护眼、抗氧化、调节免疫。
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="section-title">用法用量</h2>
+      <div class="section-content">
+        6～12g。可煎服，也可泡水、煮粥、煲汤食用。
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>注意事项：</strong>脾虚便溏者慎服。
+    </div>
+  </div>
+</div>
+</body>
+</html>

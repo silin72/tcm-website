@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>黄芪 - 中草药详情</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Microsoft Yahei", sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    .back-btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #e0e0e0;
+      color: #333;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .detail-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .herb-img-box {
+      flex: 0 0 280px;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .herb-detail-img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .img-bottom-info {
+      width: 100%;
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    .img-info-item {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+    .img-info-label {
+      color: #333;
+      font-weight: bold;
+    }
+    .herb-info-box {
+      flex: 1;
+      min-width: 300px;
+      padding-top: 10px;
+    }
+    .herb-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .herb-english {
+      font-size: 16px;
+      color: #999;
+      margin-bottom: 15px;
+      display: block;
+    }
+    .herb-tag {
+      display: inline-block;
+      background: #ff7a00;
+      color: white;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .info-section {
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .section-content {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.8;
+    }
+    .warning {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      color: #856404;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .herb-img-box {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<a href="fanhui" class="back-btn">← 返回中草药列表</a>
+
+<div class="detail-container">
+  <div class="herb-img-box">
+    <img src="img/沙参.jpg" alt="黄芪" class="herb-detail-img">
+    <div class="img-bottom-info">
+      <div class="img-info-item"><span class="img-info-label">别名：</span>绵芪、黄耆、独椹</div>
+      <div class="img-info-item"><span class="img-info-label">产地：</span>内蒙古、山西、甘肃</div>
+      <div class="img-info-item"><span class="img-info-label">采收：</span>春、秋二季采挖，晒干</div>
+    </div>
+  </div>
+  <div class="herb-info-box">
+    <h1 class="herb-title">黄芪</h1>
+    <span class="herb-english">Astragalus</span>
+    <span class="herb-tag">补气</span>
+
+    <div class="info-section">
+      <h2 class="section-title">性味归经</h2>
+      <div class="section-content">
+        性微温，味甘；归脾、肺经
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="section-title">功效与应用</h2>
+      <div class="section-content">
+        核心功效为补气升阳，固表止汗，利水消肿，生津养血，行滞通痹，托毒排脓，敛疮生肌。<br><br>
+        主要应用：<br>
+        1. 气虚乏力，食少便溏，中气下陷，久泻脱肛，便血崩漏；<br>
+        2. 表虚自汗，气虚水肿，内热消渴；<br>
+        3. 血虚萎黄，半身不遂，痹痛麻木，痈疽难溃，久溃不敛。
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2 class="section-title">用法用量</h2>
+      <div class="section-content">
+        煎服，9～30g。蜜炙黄芪增强补气升阳作用。
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>注意事项：</strong>表实邪盛，气滞湿阻，食积停滞，痈疽初起或溃后热毒尚盛等实证，以及阴虚阳亢者慎服。
+    </div>
+  </div>
+</div>
+</body>
+</html>

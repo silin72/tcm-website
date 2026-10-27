@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>当归生姜羊肉汤 | 冬藏九汤</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", "KaiTi", serif;
+    }
+    body {
+      background-color: #f8f3e6;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 Q50,20 100,0 Q50,80 0,100 Q50,20 100,0" fill="none" stroke="%23e8e0d0" stroke-width="1"/></svg>');
+      background-size: 200px;
+      color: #333;
+      padding: 0;
+      margin: 0;
+    }
+    /* 顶部导航栏 */
+    .top-header {
+      width: 100%;
+      padding: 12px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+    .nav-left a {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-left a:hover {
+      color: #b8860b;
+    }
+    .nav-left a.active {
+      color: #b8860b;
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-box input {
+      width: 220px;
+      padding: 8px 35px 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      background-color: #e8e8e8;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-box input::placeholder {
+      color: #999;
+    }
+    .search-box .search-icon {
+      position: absolute;
+      right: 12px;
+      color: #666;
+      cursor: pointer;
+    }
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .recipe-wrapper {
+      padding: 20px;
+    }
+    .recipe-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: rgba(255, 253, 245, 0.95);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    /* 装饰元素 */
+    .recipe-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M0,0 L200,0 L200,200 L0,200 Z" fill="none" stroke="%23d4c8a8" stroke-width="0.5" stroke-dasharray="5 5"/></svg>');
+      background-size: 100px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    .header h1 {
+      font-size: 32px;
+      color: #8b4513;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .header .subtitle {
+      font-size: 18px;
+      color: #666;
+    }
+    .soup-image {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .soup-image img {
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .section {
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .section h3 {
+      font-size: 22px;
+      color: #8b4513;
+      margin-bottom: 20px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .section h3::before,
+    .section h3::after {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background-color: #8b4513;
+    }
+    .ingredients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+    .ingredient-item {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+    .ingredient-item:hover {
+      transform: translateY(-5px);
+    }
+    .ingredient-item img {
+      max-width: 60px;
+      margin-bottom: 10px;
+    }
+    .ingredient-item p {
+      font-size: 16px;
+      color: #555;
+    }
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+    .nutrition-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .nutrition-item p {
+      font-size: 18px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+    }
+    .step-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .step-item:hover {
+      transform: translateY(-5px);
+    }
+    .step-item img {
+      max-width: 80px;
+      margin-bottom: 15px;
+    }
+    .step-item p {
+      font-size: 16px;
+      color: #555;
+    }
+    .story {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      line-height: 1.8;
+      color: #555;
+      font-size: 16px;
+    }
+    /* 响应式适配 */
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 26px;
+      }
+      .section h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- 顶部导航栏 -->
+<header class="top-header">
+    <nav class="nav-left">
+        <a href="index.html">首页</a>
+        <a href="1.html">中药图谱</a>
+        <a href="recipe.html">经典方剂</a>
+        <a href="recipe.html" class="active">养生食谱</a>
+        <a href="viewports.html">知识库</a>
+        <a href="community.html">问答社区</a>
+        <a href="articles.html">养生文章</a>
+    </nav>
+    <div class="nav-right">
+        <div class="search-box">
+            <input type="text" placeholder="搜索药材、方剂...">
+            <span class="search-icon">🔍</span>
+        </div>
+        <a href="profile.html">
+            <img src="img/枸杞头像.jpg" alt="用户头像" class="user-avatar" id="navAvatar" onerror="this.src='https://via.placeholder.com/36'">
+        </a>
+    </div>
+</header>
+
+<div class="recipe-wrapper">
+<div class="recipe-container">
+  <div class="header">
+    <h1>当归生姜羊肉汤</h1>
+    <p class="subtitle">千年古方，暖身驱寒</p>
+  </div>
+
+  <div class="soup-image">
+    <img src="img/当归羊肉汤.jpg" alt="当归生姜羊肉汤">
+  </div>
+
+  <div class="section">
+    <h3>食材</h3>
+    <div class="ingredients-grid">
+      <div class="ingredient-item">
+        <img src="img/山羊肉.jpg" alt="山羊肉">
+        <p>山羊肉250g</p>
+      </div>
+      <div class="ingredient-item">
+        <img src="img/当归.jpg" alt="当归">
+        <p>当归10g</p>
+      </div>
+      <div class="ingredient-item">
+        <img src="img/生姜.jpg" alt="生姜">
+        <p>生姜45g</p>
+      </div>
+      <div class="ingredient-item">
+        <img src="img/黄酒.jpg" alt="黄酒">
+        <p>黄酒50ml</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>营养亮点</h3>
+    <div class="nutrition-grid">
+      <div class="nutrition-item">
+        <p>铁+优质蛋白=造血暖炉</p>
+      </div>
+      <div class="nutrition-item">
+        <p>生姜酚→止呕</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>懒人做法</h3>
+    <div class="steps">
+      <div class="step-item">
+        <img src="img/焯水.jpg" alt="羊肉焯水">
+        <p>1. 羊肉焯水</p>
+      </div>
+      <div class="step-item">
+        <img src="img/全部放入.jpg" alt="全部进电饭煲">
+        <p>2. 全部进电饭煲</p>
+      </div>
+      <div class="step-item">
+        <img src="img/2h.jpg" alt="煲汤模式2h">
+        <p>3. 煲汤模式2h</p>
+      </div>
+      <div class="step-item">
+        <img src="img/加盐.jpg" alt="加盐">
+        <p>4. 加盐</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>千年小故事</h3>
+    <div class="story">
+      <p>张仲景《金匮要略》治"产后腹痛"，古代"女子福利汤"。此方温中补血、祛寒止痛，尤其适合冬季手脚冰凉、气血不足之人。</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+  // 页面加载时读取保存的头像
+  window.addEventListener('load', function() {
+    const savedAvatar = localStorage.getItem('userAvatar');
+    if (savedAvatar) {
+      const navAvatar = document.getElementById('navAvatar');
+      if (navAvatar) {
+        navAvatar.src = savedAvatar;
+      }
+    }
+  });
+</script>
+</body>
+</html>
